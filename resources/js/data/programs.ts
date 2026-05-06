@@ -59,7 +59,7 @@ export type NestedItem = {
 };
 
 export type NestedSection = {
-    title: string;
+    title?: string;
     items: NestedItem[];
 };
 
@@ -591,23 +591,89 @@ export const programs: Program[] = [
         name: 'Agricultural Competitiveness Enhancement Fund – Grants-in-Aid for Higher Education Program',
         tagline: 'Promoting agriculture & fisheries through education',
         description:
-            'Lorem ipsum dolor sit amet. The ACEF-GIAHEP aims to promote the development of agriculture and fisheries by increasing the number of graduates in higher education who are trained in the scientific bases of thought, entrepreneurial skills and technical competencies in the areas of agriculture, forestry, fisheries, and veterinary medicine education.',
+            'The ACEF-GIAHEP aims to promote the development of agriculture and fisheries by increasing the number of graduates in higher education who are trained in the scientific habit of thought, entrepreneurial skills and technical competencies in the areas of agriculture, forestry, fisheries, and veterinary medicine education. It is open to qualified and deserving undergraduate students who will enroll or are currently enrolled in any CHED recognized higher education institution in the areas of agriculture, forestry, fisheries, veterinary medicine education and related agricultural education programs.',
         eligibility: [
             'Filipino citizen',
-            'Graduating high school students, high school graduates, or with earned college academic units relevant to the identified degree program',
+            'Graduating high school students; High school graduates; or With earned college academic units relevant to the identified degree programs',
             'Will enroll or are currently enrolled in recognized programs of PHEIs or authorized programs of SUCs/LUCs in agriculture, forestry, fisheries, veterinary medicine education and related agricultural education programs',
             'Combined annual gross income of parents/guardians not to exceed Four Hundred Thousand Pesos (PhP400,000.00)',
             'Preferably dependent of registered farmers and/or fisherfolks in Registry System for Basic Sectors in Agriculture (RSBSA) and other registry systems',
-            'Must not be a beneficiary of any government-funded student financial assistance program',
-            'Must not be convicted of crimes involving moral turpitude',
+            'Must not be a beneficiary of any government-funded student financial assistance program; and',
+            'Must not be convicted of a crime involving moral turpitude',
         ],
-        documentaryRequirements: [
-            'Certified true copy of PSA Birth Certificate',
-            'For graduating senior high graduates: duly certified true copy of grades for Grade 11 and 1st semester of Grade 12',
-            'For applicants with earned units in college: duly certified copy of grades for the latest semester/term attended',
-            'Proof of income: ANY of the following: Latest ITR of parents or guardian (if employed); Certificate of Tax Exemption from the Bureau of Internal Revenue (BIR); Certificate of No Income from BIR; Certificate / Case Study Report from City/Municipal Social Welfare and Development Office (C/MSWDO)',
-            'Proof that the student applicant belonged to several groups (if applicable)',
-        ],
+        documentaryRequirements: [],
+        documentaryNestedSection: {
+            items: [
+                { text: 'a. Certified true copy of Birth Certificate;' },
+                {
+                    text: 'b. Academic Requirement:',
+                    subItems: [
+                        '1. For senior high school graduates — Form 138;',
+                        '2. For graduating senior high school students — duly certified true copy of grades for Grade 11 and 1st semester of Grade 12; and',
+                        '3. For applicants with earned units in college — duly certified copy of grades for the latest semester/term attended;',
+                    ],
+                },
+                {
+                    text: 'c. Proof of income — ANY of the following:',
+                    subItems: [
+                        '1. Latest Income Tax Return (ITR) of parent/s or guardian/s if employed;',
+                        '2. Certificate of Tax Exemption from the Bureau of Internal Revenue (BIR);',
+                        '3. Certificate of No Income from BIR; or',
+                        '4. Certificate/Case Study Report from City/Municipal Social Welfare and Development Office (C/MSWD).',
+                    ],
+                },
+                { text: 'd. Proof that the student applicant belonged to special group/s (if applicable).' },
+            ],
+        },
+        priorityPrograms: {
+            title: 'Priority Programs',
+            national: [
+                {
+                    category: '',
+                    items: [
+                        'Bachelor of Science in Agriculture',
+                        'Bachelor of Science in Forestry',
+                        'Bachelor of Science in Agroforestry',
+                        'Bachelor of Science in Fisheries',
+                        'Bachelor of Science in Veterinary Technology',
+                        'Doctor of Veterinary Medicine',
+                        'Other Agricultural Related Courses',
+                    ],
+                },
+            ],
+        },
+        financialBenefits: {
+            groups: [
+                {
+                    institution: 'a) Private Higher Education Institutions (PHEIs)',
+                    summary: [
+                        '₱30,000.00 PER SEMESTER · ₱60,000.00 PER AY',
+                        'Tuition and Other School Fees — ₱10,000.00',
+                        'Stipend — ₱17,500.00',
+                        'Book Allowance — ₱2,500.00',
+                    ],
+                    columns: ['Period', 'TOSF', 'Stipend', 'Book Allowance', 'Total'],
+                    rows: [
+                        { scholarType: 'Annual', tsfLabel: '₱20,000.00', stipend: '₱35,000.00', bookAllowance: '₱5,000.00', total: '₱60,000.00' },
+                        { scholarType: 'Semestral', tsfLabel: '₱10,000.00', stipend: '₱17,500.00', bookAllowance: '₱2,500.00', total: '₱30,000.00' },
+                    ],
+                },
+                {
+                    institution: 'b) State / Local Universities and Colleges (SUCs/LUCs)',
+                    summary: [
+                        '₱20,000.00 PER SEMESTER · ₱40,000.00 PER AY',
+                        'Tuition and Other School Fees — Free',
+                        'Stipend — ₱17,500.00',
+                        'Book Allowance — ₱2,500.00',
+                    ],
+                    columns: ['Period', 'TOSF', 'Stipend', 'Book Allowance', 'Total'],
+                    rows: [
+                        { scholarType: 'Annual', tsfLabel: 'FREE', stipend: '₱35,000.00', bookAllowance: '₱5,000.00', total: '₱40,000.00' },
+                        { scholarType: 'Semestral', tsfLabel: 'FREE', stipend: '₱17,500.00', bookAllowance: '₱2,500.00', total: '₱20,000.00' },
+                    ],
+                },
+            ],
+        },
         icon: Tractor,
         accent: 'from-amber-500 to-orange-600',
     },

@@ -169,7 +169,7 @@ function RequirementCard({
             )}
             {nestedSection && (
                 <div className={cn('mt-5 pt-5', items.length > 0 && 'border-t border-slate-100')}>
-                    <p className="mb-3 text-sm font-semibold text-slate-700">{nestedSection.title}</p>
+                    {nestedSection.title && <p className="mb-3 text-sm font-semibold text-slate-700">{nestedSection.title}</p>}
                     <ul className="space-y-3">
                         {nestedSection.items.map((item, i) => (
                             <li key={i} className="flex gap-3 text-sm leading-relaxed text-slate-600">
@@ -194,7 +194,7 @@ function RequirementCard({
             )}
             {nestedSections && nestedSections.map((ns, nsIndex) => (
                 <div key={nsIndex} className={cn('mt-5 pt-5 border-t border-slate-100', nsIndex === 0 && !items.length && 'border-t-0')}>
-                    <p className="mb-3 text-sm font-semibold text-slate-700">{ns.title}</p>
+                    {ns.title && <p className="mb-3 text-sm font-semibold text-slate-700">{ns.title}</p>}
                     <ul className="space-y-3">
                         {ns.items.map((item, i) => (
                             <li key={i} className="flex gap-3 text-sm leading-relaxed text-slate-600">
