@@ -64,6 +64,7 @@ export type NestedSection = {
 };
 
 export type PriorityPrograms = {
+    title?: string;
     subtitle?: string;
     note?: string;
     national: NationalCategory[];
@@ -76,13 +77,17 @@ export type Program = {
     name: string;
     tagline: string;
     description: string;
+    eligibilityNote?: string;
     eligibility: string[];
+    eligibilityNestedSection?: NestedSection;
     ineligibility?: string[];
     ineligibilityNote?: string;
     documentaryNote?: string;
     documentaryRequirements: string[];
     documentaryNestedSection?: NestedSection;
+    documentaryNestedSections?: NestedSection[];
     otherRequirements?: string[];
+    otherRequirementsNote?: string;
     benefits?: string[];
     financialBenefits?: FinancialBenefits;
     priorityPrograms?: PriorityPrograms;
@@ -327,29 +332,256 @@ export const programs: Program[] = [
         name: 'Scholarship Grant for Children & Dependents of Sugarcane Industry Workers and Small Sugarcane Farmers',
         tagline: 'For dependents of sugarcane industry workers',
         description:
-            'Lorem ipsum dolor sit amet. The SIDA SGP is open to qualified and deserving children and dependents of sugarcane industry workers and small sugarcane farmers, encouraging undergraduate and graduate students who will enroll or are currently enrolled in relevant fields of discipline in State Universities and Colleges (SUCs).',
-        eligibility: [
-            'Filipino citizen',
-            'Must be a dependent of a sugarcane industry worker or small sugarcane farmer',
-            'For undergraduate: high school graduate or with earned college academic units relevant to the identified degree program',
-            'For graduate: with relevant undergraduate degree program and entry-level requirements of the identified SUC',
-            'Combined annual gross income of parent/guardian not to exceed PHP500,000.00',
+            'The SIDA-SGP is open to qualified and deserving children and dependents of sugarcane industry workers and small sugarcane farmers. This program shall cover both undergraduate and graduate students who will enroll or are currently enrolled in relevant fields of discipline in State Universities and Colleges (SUCs). This is to encourage interest in fields of discipline which are necessary for the development, sustainability and competitiveness of the Philippine sugarcane industry such as but not limited to agriculture; agricultural engineering and mechanics; chemical engineering and sugar technology; agricultural extension; chemistry; agricultural business and economics, accounting and statistics; biology, microbiology and biotechnology.',
+        eligibility: [],
+        eligibilityNestedSection: {
+            title: 'Track-Specific Eligibility',
+            items: [
+                {
+                    text: '1.1 Undergraduate program',
+                    subItems: [
+                        'Must be a Filipino Citizen;',
+                        'High school graduate or with earned college academic units relevant to the identified degree program;',
+                        'Must pass the entry level requirements of the identified SUC;',
+                        "Duly certified by SRA as Sugarcane Industry Workers and Small Sugarcane Farmer's children and dependents; and",
+                        'Must have a combined annual gross income of parent/guardian not to exceed Php400,000.00.',
+                    ],
+                },
+                {
+                    text: '1.2 Graduate program',
+                    subItems: [
+                        'Must be a Filipino Citizen;',
+                        'With related undergraduate degree program and must pass the entry level requirements of identified SUC for master and doctoral degree programs;',
+                        "Duly certified by SRA as Sugarcane Industry Workers and Small Sugarcane Farmer's children and dependents; and",
+                        'Applicant and/or spouse must have a combined annual gross income of not exceed PHP500,000.00.',
+                    ],
+                },
+            ],
+        },
+        documentaryRequirements: [],
+        documentaryNestedSections: [
+            {
+                title: '2.1.1 Undergraduate Program',
+                items: [
+                    { text: 'For graduating Senior High School students — duly certified true copy of grades for Grades 11 and 1st semester of Grade 12;' },
+                    { text: 'For Lifelong Learners eligible for college — High School Report Card;' },
+                    { text: 'For applicants with earned units in college — duly Certified Copy of Grades for the latest semester/term attended;' },
+                    {
+                        text: 'For other Applicants:',
+                        subItems: [
+                            'ALS — duly certified copy of ALS Accreditation and Equivalency Test Passer Certificate;',
+                            'PEPT — duly certified copy of PEPT Certificate of Advancing to the next level.',
+                        ],
+                    },
+                    { text: 'Certificate of Good Moral Character from the last school attended;' },
+                    { text: 'Certificate from SRA as children and dependents of sugarcane industry workers and small sugarcane farmers;' },
+                    { text: 'Notice of admission from the SUC;' },
+                    {
+                        text: 'Proof of Income — any one (1) of the following:',
+                        subItems: [
+                            'Latest Income Tax Return (ITR) of parents/guardians if employed;',
+                            'Certificate of Tax Exemption from the Bureau of Internal Revenue (BIR);',
+                            'Certificate of No Income from BIR;',
+                            'Certificate of Indigence from their barangay;',
+                            'Certificate/Case Study from Department of Social Welfare and Development (DSWD); or',
+                            'For Children of OFW and Seafarers, a latest copy of contract or proof of income may be considered.',
+                        ],
+                    },
+                ],
+            },
+            {
+                title: '2.1.2 Graduate Program',
+                items: [
+                    { text: "Diploma and Transcript of Records (TOR) of baccalaureate/master's degree or approved thesis/dissertation proposal approved and endorsed by the Technical Working Group (TWG) for grant;" },
+                    { text: 'Certificate of Good Moral Character from the last school attended;' },
+                    { text: 'Certification from SRA as children and dependents of Sugarcane Industry Workers and Small Sugarcane Farmers;' },
+                    { text: 'Notice of Admission from the SUCs; and' },
+                    {
+                        text: 'Proof of Income — any one (1) of the following:',
+                        subItems: [
+                            'Latest ITR;',
+                            'Certificate of Tax Exemption from the BIR;',
+                            'Certificate of No Income from BIR;',
+                            'Certificate of Indigence from their barangay; or',
+                            'Certificate/Case Study from DSWD.',
+                        ],
+                    },
+                ],
+            },
         ],
-        documentaryRequirements: [
-            'Birth Certificate issued by the Local Civil Registry or PSA',
-            'Form 138 / High School Report Card',
-            'For Lifelong Learners eligible for college: High School Report Card',
-            'Duly Certified Copy of Grades for the latest semester/term attended',
-            'Certificate of Good Moral Character from the last school attended',
-            "Certificate from SRA as one (1) of the following: Sugarcane Industry Workers and Small Sugarcane Farmer's children and dependents",
-            'PCA Certification, issued by PCA Regional Office (PCA RO) to NCFRS registered coconut farmers/farmworkers',
-            'Notice of Admission from the SUC',
-            'Latest Income Tax Return (ITR) of applicant and spouse / parents / guardians (if employed)',
-            'Certificate of Tax Exemption from the Bureau of Internal Revenue (BIR)',
-            'Certificate of No Income from BIR',
-            'Certificate of Indigency from their Barangay',
-            'Certificate / Case Study from Department of Social Welfare and Development (DSWD)',
+        otherRequirementsNote:
+            'Aside from the requirements in 2.1.1 and 2.1.2, those student-applicants belonging to the following special group of persons shall submit certification and/or identification cards (IDs) issued by the appropriate offices or agencies:',
+        otherRequirements: [
+            'Underprivileged and Homeless Citizens under Republic Act (RA) No. 7279;',
+            'Persons with Disability (PWDs) under RA No. 7277;',
+            'Solo Parents and/or their Dependents under RA 8972;',
+            'Senior Citizens under RA 9994; and',
+            'Indigenous Peoples under RA 8371.',
         ],
+        financialBenefits: {
+            groups: [
+                {
+                    institution: '1. For Undergraduate Programs',
+                    tableTitle: '1.1 Regular Allowances',
+                    summary: ['₱55,000.00 PER SEMESTER · ₱110,000.00 PER AY'],
+                    columns: ['Type', 'Unit Cost (PHP)', 'Total Cost per Academic Year (PHP)'],
+                    rows: [
+                        {
+                            scholarType: 'a. Stipend (which includes subsistence, clothing, transportation allowance, educational tours, field trips, expenses for small projects and medical insurance)',
+                            tsfLabel: '₱10,000.00/month × 10 months or ₱50,000.00/semester',
+                            stipend: '₱100,000.00',
+                            bookAllowance: '',
+                            total: '',
+                        },
+                        {
+                            scholarType: 'b. Book allowance and other learning materials',
+                            tsfLabel: '₱5,000.00/semester',
+                            stipend: '₱10,000.00',
+                            bookAllowance: '',
+                            total: '',
+                        },
+                        {
+                            scholarType: 'Subtotal',
+                            tsfLabel: '',
+                            stipend: '₱110,000.00',
+                            bookAllowance: '',
+                            total: '',
+                        },
+                    ],
+                },
+                {
+                    tableTitle: '1.2 Others',
+                    columns: ['Type', 'Total Cost'],
+                    rows: [
+                        {
+                            scholarType: 'a. Thesis and/or OJT allowance',
+                            tsfLabel: '₱75,000.00',
+                            stipend: '',
+                            bookAllowance: '',
+                            total: '',
+                        },
+                        {
+                            scholarType: 'b. One-time attendance to local conference/fora (should be related to the undergraduate program and to be given during the junior or senior standing. The activity should not be on the same HEI where the beneficiary is enrolled.)',
+                            tsfLabel: '₱15,000.00',
+                            stipend: '',
+                            bookAllowance: '',
+                            total: '',
+                        },
+                    ],
+                },
+                {
+                    institution: '2. For Graduate Programs',
+                    tableTitle: '2.1 Regular Allowances',
+                    summary: ['₱87,500.00 PER SEMESTER · ₱175,000.00 PER AY'],
+                    columns: ['Type', 'Unit Cost (PHP)', 'Total Cost per Academic Year (PHP)'],
+                    rows: [
+                        {
+                            scholarType: 'a. Tuition and Other School Fees',
+                            tsfLabel: '₱30,000.00/semester',
+                            stipend: '₱60,000.00',
+                            bookAllowance: '',
+                            total: '',
+                        },
+                        {
+                            scholarType: 'b. Stipend (which includes subsistence, clothing, transportation allowance, educational tours, field trips, expenses for small projects and medical insurance)',
+                            tsfLabel: '₱10,000.00/month × 10 months or ₱50,000.00/semester',
+                            stipend: '₱100,000.00',
+                            bookAllowance: '',
+                            total: '',
+                        },
+                        {
+                            scholarType: 'c. Book allowance and other learning materials',
+                            tsfLabel: '₱7,500.00/semester',
+                            stipend: '₱15,000.00',
+                            bookAllowance: '',
+                            total: '',
+                        },
+                        {
+                            scholarType: 'Subtotal',
+                            tsfLabel: '',
+                            stipend: '₱175,000.00',
+                            bookAllowance: '',
+                            total: '',
+                        },
+                    ],
+                },
+                {
+                    tableTitle: '2.2 Others',
+                    columns: ['Type', 'Total Cost'],
+                    rows: [
+                        {
+                            scholarType: 'One-time attendance to local conference/fora (should be related to the graduate program. The activity should not be on the same HEI where the beneficiary is enrolled.)',
+                            tsfLabel: '₱15,000.00',
+                            stipend: '',
+                            bookAllowance: '',
+                            total: '',
+                        },
+                        {
+                            scholarType: 'Dissertation Allowance (Doctoral)',
+                            tsfLabel: '₱100,000.00',
+                            stipend: '',
+                            bookAllowance: '',
+                            total: '',
+                        },
+                        {
+                            scholarType: 'Thesis Allowance (Masters)',
+                            tsfLabel: '₱75,000.00',
+                            stipend: '',
+                            bookAllowance: '',
+                            total: '',
+                        },
+                    ],
+                },
+            ],
+        },
+        priorityPrograms: {
+            title: 'Priority Programs',
+            national: [
+                {
+                    category: 'BS/MS/PhD in Agriculture',
+                    items: [
+                        'Plant Breeding/Genetics',
+                        'Crop/Soil Science',
+                        'Agronomy',
+                        'Plant/Crop Physiology',
+                        'Agricultural Biotechnology',
+                        'Entomology',
+                        'Agricultural Extension',
+                    ],
+                },
+                {
+                    category: 'BS/MS/PhD in Chemistry',
+                    items: [
+                        'Chemistry',
+                        'Soil Chemistry',
+                        'Agricultural Chemistry',
+                    ],
+                },
+                {
+                    category: 'BS/MS/PhD in Engineering',
+                    items: [
+                        'Chemical Engineering/Sugar Technology',
+                        'Mechanical Engineering',
+                        'Electrical Engineering',
+                        'Civil Engineering',
+                        'Agricultural Engineering',
+                        'Industrial Engineering',
+                    ],
+                },
+                {
+                    category: 'Other Relevant Courses',
+                    items: [
+                        'BS Statistics',
+                        'BS Agricultural Economics',
+                        'BS Agricultural Business',
+                        'BS Accounting Management',
+                        'BS Financial Management',
+                        'BS Accountancy',
+                        'BS Biology/Microbiology & Biotechnology',
+                    ],
+                },
+            ],
+        },
         icon: Sprout,
         accent: 'from-emerald-500 to-teal-600',
     },

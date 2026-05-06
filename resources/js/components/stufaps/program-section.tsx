@@ -74,7 +74,9 @@ export function ProgramSection({ program, index }: Props) {
                         <RequirementCard
                             icon={CheckCircle2}
                             title="Eligibility"
+                            note={program.eligibilityNote}
                             items={program.eligibility}
+                            nestedSection={program.eligibilityNestedSection}
                             tone="emerald"
                         />
                         {program.ineligibility && program.ineligibility.length > 0 && (
@@ -92,12 +94,14 @@ export function ProgramSection({ program, index }: Props) {
                             note={program.documentaryNote}
                             items={program.documentaryRequirements}
                             nestedSection={program.documentaryNestedSection}
+                            nestedSections={program.documentaryNestedSections}
                             tone="sky"
                         />
                         {program.otherRequirements && program.otherRequirements.length > 0 && (
                             <RequirementCard
                                 icon={FileText}
                                 title="Other Requirements (if applicable)"
+                                note={program.otherRequirementsNote}
                                 items={program.otherRequirements}
                                 tone="amber"
                             />
@@ -132,6 +136,7 @@ function RequirementCard({
     note,
     items,
     nestedSection,
+    nestedSections,
     tone,
 }: {
     icon: typeof CheckCircle2;
@@ -139,6 +144,7 @@ function RequirementCard({
     note?: string;
     items: string[];
     nestedSection?: NestedSection;
+    nestedSections?: NestedSection[];
     tone: keyof typeof TONES;
 }) {
     const t = TONES[tone];
@@ -151,16 +157,18 @@ function RequirementCard({
                 <h3 className="text-lg font-bold text-slate-900">{title}</h3>
             </div>
             {note && <p className="mt-3 text-sm leading-relaxed text-slate-600">{note}</p>}
-            <ul className="mt-4 space-y-2.5">
-                {items.map((item, i) => (
-                    <li key={i} className="flex gap-3 text-sm leading-relaxed text-slate-600">
-                        <span className={cn('mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full', t.dot)} />
-                        <span>{item}</span>
-                    </li>
-                ))}
-            </ul>
+            {items.length > 0 && (
+                <ul className="mt-4 space-y-2.5">
+                    {items.map((item, i) => (
+                        <li key={i} className="flex gap-3 text-sm leading-relaxed text-slate-600">
+                            <span className={cn('mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full', t.dot)} />
+                            <span>{item}</span>
+                        </li>
+                    ))}
+                </ul>
+            )}
             {nestedSection && (
-                <div className="mt-5 border-t border-slate-100 pt-5">
+                <div className={cn('mt-5 pt-5', items.length > 0 && 'border-t border-slate-100')}>
                     <p className="mb-3 text-sm font-semibold text-slate-700">{nestedSection.title}</p>
                     <ul className="space-y-3">
                         {nestedSection.items.map((item, i) => (
@@ -184,6 +192,31 @@ function RequirementCard({
                     </ul>
                 </div>
             )}
+            {nestedSections && nestedSections.map((ns, nsIndex) => (
+                <div key={nsIndex} className={cn('mt-5 pt-5 border-t border-slate-100', nsIndex === 0 && !items.length && 'border-t-0')}>
+                    <p className="mb-3 text-sm font-semibold text-slate-700">{ns.title}</p>
+                    <ul className="space-y-3">
+                        {ns.items.map((item, i) => (
+                            <li key={i} className="flex gap-3 text-sm leading-relaxed text-slate-600">
+                                <span className={cn('mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full', t.dot)} />
+                                <div>
+                                    <span>{item.text}</span>
+                                    {item.subItems && item.subItems.length > 0 && (
+                                        <ul className="mt-2 space-y-1.5 pl-2">
+                                            {item.subItems.map((sub, j) => (
+                                                <li key={j} className="flex gap-2 text-slate-500">
+                                                    <span className={cn('mt-1.5 h-1 w-1 shrink-0 rounded-full opacity-60', t.dot)} />
+                                                    <span>{sub}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            ))}
         </div>
     );
 }
@@ -254,20 +287,20 @@ function FinancialBenefitsCard({ benefits }: { benefits: FinancialBenefits }) {
                             )}
                             <div className="overflow-x-auto rounded-xl border border-slate-200">
                                 <table className="min-w-full text-sm">
-                                    {group.tableTitle && (
+                                    {(group.tableTitle || hasVisibleHeaders) && (
                                         <thead>
-                                            <tr className="bg-slate-100">
-                                                <th colSpan={colCount} className="px-4 py-2.5 text-left text-xs font-bold tracking-wider text-slate-700 uppercase">{group.tableTitle}</th>
-                                            </tr>
-                                        </thead>
-                                    )}
-                                    {!group.tableTitle && hasVisibleHeaders && (
-                                        <thead>
-                                            <tr className="bg-slate-50 text-left">
-                                                {cols.map((col, i) => (
-                                                    <th key={i} className={`px-4 py-2.5 text-xs font-semibold tracking-wider text-slate-500 uppercase${i === colCount - 1 ? ' text-right' : ''}`}>{col}</th>
-                                                ))}
-                                            </tr>
+                                            {group.tableTitle && (
+                                                <tr className="bg-slate-100">
+                                                    <th colSpan={colCount} className="px-4 py-2.5 text-left text-xs font-bold tracking-wider text-slate-700 uppercase">{group.tableTitle}</th>
+                                                </tr>
+                                            )}
+                                            {hasVisibleHeaders && (
+                                                <tr className="bg-slate-50 text-left">
+                                                    {cols.map((col, i) => (
+                                                        <th key={i} className={`px-4 py-2.5 text-xs font-semibold tracking-wider text-slate-500 uppercase${i === colCount - 1 ? ' text-right' : ''}`}>{col}</th>
+                                                    ))}
+                                                </tr>
+                                            )}
                                         </thead>
                                     )}
                                     <tbody className="divide-y divide-slate-100">
@@ -300,7 +333,7 @@ function PriorityProgramsCard({ programs }: { programs: PriorityPrograms }) {
                 <div className="grid h-10 w-10 place-items-center rounded-lg bg-violet-50">
                     <BookMarked className="h-5 w-5 text-violet-600" />
                 </div>
-                <h3 className="text-lg font-bold text-slate-900">National Priority Programs</h3>
+                <h3 className="text-lg font-bold text-slate-900">{programs.title ?? 'National Priority Programs'}</h3>
             </div>
             <div className="space-y-5">
                 {programs.subtitle && (
