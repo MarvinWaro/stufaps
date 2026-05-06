@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npx tsc *)"
+      "Bash(npx tsc *)",
+      "PowerShell(cd C:\\\\Users\\\\MARVIN\\\\projects\\\\stufaps; $content = Get-Content \"resources/js/data/programs.ts\" -Encoding UTF8 -Raw; $lines = $content -split \"`n\"; $line58 = $lines[57]; [System.Text.Encoding]::UTF8.GetBytes\\($line58\\) | ForEach-Object { \"{0:X2}\" -f $_ } | Join-String -Separator \" \")",
+      "PowerShell(cd C:\\\\Users\\\\MARVIN\\\\projects\\\\stufaps; $content = Get-Content \"resources/js/data/programs.ts\" -Encoding UTF8 -Raw; $lines = $content -split \"`n\"; $line58 = $lines[57]; \\([System.Text.Encoding]::UTF8.GetBytes\\($line58\\) | ForEach-Object { \"{0:X2}\" -f $_ }\\) -join \" \")",
+      "PowerShell(cd C:\\\\Users\\\\MARVIN\\\\projects\\\\stufaps; $raw = [System.IO.File]::ReadAllText\\(\"resources\\\\js\\\\data\\\\programs.ts\", [System.Text.Encoding]::UTF8\\); $fixed = $raw -replace [char]0x2018, \"'\" -replace [char]0x2019, \"'\" -replace [char]0x201C, '\"' -replace [char]0x201D, '\"'; [System.IO.File]::WriteAllText\\(\"resources\\\\js\\\\data\\\\programs.ts\", $fixed, [System.Text.Encoding]::UTF8\\); Write-Host \"Done. Replaced curly quotes.\")",
+      "PowerShell(cd C:\\\\Users\\\\MARVIN\\\\projects\\\\stufaps; $content = Get-Content \"resources/js/data/programs.ts\" -Encoding UTF8; $i = 1; foreach \\($line in $content\\) { if \\($line -match \"'.+'.+'\"\\) { Write-Host \"${i}: $line\" }; $i++ })"
     ]
   }
 }

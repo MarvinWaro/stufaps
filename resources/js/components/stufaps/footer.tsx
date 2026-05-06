@@ -1,5 +1,5 @@
 import { programs } from '@/data/programs';
-import { ArrowUp, Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Twitter } from 'lucide-react';
+import { ArrowUp, Facebook, Mail, MapPin, Phone, Smartphone } from 'lucide-react';
 
 const USEFUL_LINKS = [
     { label: 'Home', target: 'home' },
@@ -16,10 +16,7 @@ const RESOURCES = [
 ];
 
 const SOCIALS = [
-    { icon: Facebook, label: 'Facebook' },
-    { icon: Twitter, label: 'X' },
-    { icon: Instagram, label: 'Instagram' },
-    { icon: Linkedin, label: 'LinkedIn' },
+    { icon: Facebook, label: 'Facebook', href: 'https://www.facebook.com/stufaps.regionxii' },
 ];
 
 export function Footer() {
@@ -33,10 +30,9 @@ export function Footer() {
             <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
                     <div className="lg:col-span-1">
-                        <div className="flex items-center gap-2 font-bold">
-                            <div className="grid h-9 w-9 place-items-center rounded-lg bg-gradient-to-br from-sky-500 to-blue-700 text-white shadow-md">
-                                <span className="text-sm font-black">S</span>
-                            </div>
+                        <div className="flex items-center gap-2.5 font-bold">
+                            <img src="/assets/img/ched-logo.png" alt="CHED" className="h-10 w-10 object-contain" />
+                            <img src="/assets/img/bagong-pilipinas.png" alt="Bagong Pilipinas" className="h-10 w-10 object-contain" />
                             <span className="text-lg text-white">STUFAPS</span>
                         </div>
                         <p className="mt-4 text-sm leading-relaxed text-slate-400">
@@ -50,8 +46,12 @@ export function Footer() {
                                 <span className="text-slate-400">CHED Regional Office XII, Koronadal City</span>
                             </li>
                             <li className="flex items-center gap-2.5">
-                                <Phone className="h-4 w-4 shrink-0 text-sky-400" />
+                                <Smartphone className="h-4 w-4 shrink-0 text-sky-400" />
                                 <span className="text-slate-400">0909 711 1264</span>
+                            </li>
+                            <li className="flex items-center gap-2.5">
+                                <Phone className="h-4 w-4 shrink-0 text-sky-400" />
+                                <span className="text-slate-400">(083) 228 7570</span>
                             </li>
                             <li className="flex items-center gap-2.5">
                                 <Mail className="h-4 w-4 shrink-0 text-sky-400" />
@@ -117,7 +117,9 @@ export function Footer() {
                             {SOCIALS.map((s) => (
                                 <a
                                     key={s.label}
-                                    href="#"
+                                    href={s.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     aria-label={s.label}
                                     className="grid h-9 w-9 place-items-center rounded-full border border-slate-700 text-slate-400 transition-all hover:-translate-y-0.5 hover:border-sky-400 hover:bg-sky-500/10 hover:text-sky-400"
                                 >
