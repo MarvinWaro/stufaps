@@ -1,7 +1,7 @@
-import type { Program } from '@/data/programs';
+import type { FinancialBenefits, PriorityPrograms, Program } from '@/data/programs';
 import { useReveal } from '@/hooks/use-reveal';
 import { cn } from '@/lib/utils';
-import { ArrowRight, CheckCircle2, FileText, Image as ImageIcon, Sparkles } from 'lucide-react';
+import { ArrowRight, Banknote, BookMarked, CheckCircle2, FileText, Image as ImageIcon, Sparkles, XCircle } from 'lucide-react';
 
 type Props = {
     program: Program;
@@ -25,7 +25,7 @@ export function ProgramSection({ program, index }: Props) {
                     visible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0',
                 )}
             >
-                <div className={cn('grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-16', reverse && 'lg:[&>*:first-child]:order-2')}>
+                <div className={cn('grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16', reverse && 'lg:[&>*:first-child]:order-2')}>
                     <div className="lg:col-span-5">
                         <div className="sticky top-24 space-y-6">
                             <div
@@ -77,6 +77,14 @@ export function ProgramSection({ program, index }: Props) {
                             items={program.eligibility}
                             tone="emerald"
                         />
+                        {program.ineligibility && program.ineligibility.length > 0 && (
+                            <RequirementCard
+                                icon={XCircle}
+                                title="Ineligibility Requirements"
+                                items={program.ineligibility}
+                                tone="red"
+                            />
+                        )}
                         <RequirementCard
                             icon={FileText}
                             title="Documentary Requirements"
@@ -94,6 +102,12 @@ export function ProgramSection({ program, index }: Props) {
                         {program.benefits && program.benefits.length > 0 && (
                             <RequirementCard icon={Sparkles} title="Benefits" items={program.benefits} tone="rose" />
                         )}
+                        {program.priorityPrograms && (
+                            <PriorityProgramsCard programs={program.priorityPrograms} />
+                        )}
+                        {program.financialBenefits && (
+                            <FinancialBenefitsCard benefits={program.financialBenefits} />
+                        )}
                     </div>
                 </div>
             </div>
@@ -106,6 +120,7 @@ const TONES = {
     sky: { bg: 'bg-sky-50', icon: 'text-sky-600', dot: 'bg-sky-600', border: 'border-sky-200' },
     amber: { bg: 'bg-amber-50', icon: 'text-amber-600', dot: 'bg-amber-600', border: 'border-amber-200' },
     rose: { bg: 'bg-rose-50', icon: 'text-rose-600', dot: 'bg-rose-600', border: 'border-rose-200' },
+    red: { bg: 'bg-red-50', icon: 'text-red-600', dot: 'bg-red-600', border: 'border-red-200' },
 } as const;
 
 function RequirementCard({
@@ -136,6 +151,144 @@ function RequirementCard({
                     </li>
                 ))}
             </ul>
+        </div>
+    );
+}
+
+function FinancialBenefitsCard({ benefits }: { benefits: FinancialBenefits }) {
+    return (
+        <div className="rounded-2xl border border-sky-200 bg-white p-6 shadow-sm sm:p-7">
+            <div className="mb-5 flex items-center gap-3">
+                <div className="grid h-10 w-10 place-items-center rounded-lg bg-sky-50">
+                    <Banknote className="h-5 w-5 text-sky-600" />
+                </div>
+                <h3 className="text-lg font-bold text-slate-900">Financial Benefits</h3>
+            </div>
+            <div className="space-y-6">
+                {/* Detailed table (Program × Particulars × Per Semester × Per AY) */}
+                {benefits.detailedGroups?.map((dg) => (
+                    <div key={dg.institution}>
+                        <p className="mb-3 text-sm font-semibold text-slate-700">{dg.institution}</p>
+                        {dg.summary && dg.summary.length > 0 && (
+                            <ul className="mb-3 space-y-1">
+                                {dg.summary.map((line) => (
+                                    <li key={line} className="text-xs font-semibold tracking-wide text-sky-700 uppercase">{line}</li>
+                                ))}
+                            </ul>
+                        )}
+                        <div className="overflow-x-auto rounded-xl border border-slate-200">
+                            <table className="min-w-full text-sm">
+                                <thead>
+                                    <tr className="bg-slate-50 text-left">
+                                        <th className="px-4 py-2.5 text-xs font-semibold tracking-wider text-slate-500 uppercase">Program</th>
+                                        <th className="px-4 py-2.5 text-xs font-semibold tracking-wider text-slate-500 uppercase">Particulars</th>
+                                        <th className="px-4 py-2.5 text-xs font-semibold tracking-wider text-slate-500 uppercase">Per Semester</th>
+                                        <th className="px-4 py-2.5 text-right text-xs font-semibold tracking-wider text-slate-500 uppercase">Per AY</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-slate-100">
+                                    {dg.programGroups.map((pg) =>
+                                        pg.rows.map((row, rowIndex) => (
+                                            <tr key={`${pg.program}-${rowIndex}`} className={row.isTotal ? 'bg-slate-50' : 'hover:bg-slate-50/60'}>
+                                                {rowIndex === 0 && (
+                                                    <td rowSpan={pg.rows.length} className="px-4 py-3 align-top font-semibold text-slate-900">{pg.program}</td>
+                                                )}
+                                                <td className={`px-4 py-3 ${row.isTotal ? 'text-right font-bold text-slate-900' : 'text-slate-600'}`}>{row.particulars}</td>
+                                                <td className={`px-4 py-3 ${row.isTotal ? 'font-bold text-slate-900' : 'text-slate-600'}`}>{row.perSemester}</td>
+                                                <td className={`px-4 py-3 text-right ${row.isTotal ? 'font-bold text-sky-600' : 'text-slate-600'}`}>{row.perAY}</td>
+                                            </tr>
+                                        ))
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                ))}
+                {/* Simple table (Scholar Type × TOSF × Stipend × Book Allowance × Total) */}
+                {benefits.groups?.map((group) => (
+                    <div key={group.institution}>
+                        <p className="mb-3 text-sm font-semibold text-slate-700">{group.institution}</p>
+                        {group.summary && group.summary.length > 0 && (
+                            <ul className="mb-3 space-y-1">
+                                {group.summary.map((line) => (
+                                    <li key={line} className="text-xs font-semibold tracking-wide text-sky-700 uppercase">{line}</li>
+                                ))}
+                            </ul>
+                        )}
+                        <div className="overflow-x-auto rounded-xl border border-slate-200">
+                            <table className="min-w-full text-sm">
+                                <thead>
+                                    <tr className="bg-slate-50 text-left">
+                                        {(group.columns ?? ['Scholar Type', 'TOSF', 'Stipend', 'Book Allowance', 'Total']).map((col, i, arr) => (
+                                            <th key={i} className={`px-4 py-2.5 text-xs font-semibold tracking-wider text-slate-500 uppercase${i === arr.length - 1 ? ' text-right' : ''}`}>{col}</th>
+                                        ))}
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-slate-100">
+                                    {group.rows.map((row) => {
+                                        const cells = [row.scholarType, row.tsfLabel, row.stipend, row.bookAllowance, row.total];
+                                        const colCount = (group.columns ?? ['Scholar Type', 'TOSF', 'Stipend', 'Book Allowance', 'Total']).length;
+                                        return (
+                                            <tr key={row.scholarType} className="hover:bg-slate-50/60">
+                                                {cells.slice(0, colCount).map((cell, i) => (
+                                                    <td key={i} className={`px-4 py-3${i === 0 ? ' font-semibold text-slate-900' : i === colCount - 1 ? ' text-right font-bold text-sky-600' : ' text-slate-600'}`}>{cell}</td>
+                                                ))}
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                ))}
+                <p className="text-xs text-slate-400">Values shown as Per Semester / Per Academic Year</p>
+            </div>
+        </div>
+    );
+}
+
+function PriorityProgramsCard({ programs }: { programs: PriorityPrograms }) {
+    return (
+        <div className="rounded-2xl border border-violet-200 bg-white p-6 shadow-sm sm:p-7">
+            <div className="mb-5 flex items-center gap-3">
+                <div className="grid h-10 w-10 place-items-center rounded-lg bg-violet-50">
+                    <BookMarked className="h-5 w-5 text-violet-600" />
+                </div>
+                <h3 className="text-lg font-bold text-slate-900">Priority Programs</h3>
+            </div>
+            <div className="space-y-5">
+                <p className="text-xs font-bold tracking-[0.15em] text-violet-600 uppercase">
+                    {programs.subtitle ?? 'National Priority Programs — CMO No. 7 Series of 2023'}
+                </p>
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    {programs.national.map((cat) => (
+                        <div key={cat.category} className="rounded-xl border border-slate-100 bg-slate-50 p-4">
+                            <p className="mb-2 text-xs font-bold text-violet-700">{cat.category}</p>
+                            <ul className="space-y-1">
+                                {cat.items.map((item) => (
+                                    <li key={item} className="flex gap-2 text-xs leading-relaxed text-slate-600">
+                                        <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-violet-400" />
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
+                </div>
+                {programs.regional && programs.regional.length > 0 && (
+                    <div>
+                        <p className="mb-2 text-xs font-bold tracking-[0.15em] text-violet-600 uppercase">Regional Priority Programs</p>
+                        <ul className="space-y-1.5">
+                            {programs.regional.map((item) => (
+                                <li key={item} className="flex gap-2 text-sm leading-relaxed text-slate-600">
+                                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-violet-500" />
+                                    {item}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+            </div>
         </div>
     );
 }
