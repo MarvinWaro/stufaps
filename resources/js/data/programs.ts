@@ -18,7 +18,8 @@ export type FinancialBenefitRow = {
 };
 
 export type FinancialBenefitGroup = {
-    institution: string;
+    institution?: string;
+    tableTitle?: string;
     summary?: string[];
     columns?: string[];
     rows: FinancialBenefitRow[];
@@ -52,8 +53,19 @@ export type NationalCategory = {
     items: string[];
 };
 
+export type NestedItem = {
+    text: string;
+    subItems?: string[];
+};
+
+export type NestedSection = {
+    title: string;
+    items: NestedItem[];
+};
+
 export type PriorityPrograms = {
     subtitle?: string;
+    note?: string;
     national: NationalCategory[];
     regional?: string[];
 };
@@ -66,7 +78,10 @@ export type Program = {
     description: string;
     eligibility: string[];
     ineligibility?: string[];
+    ineligibilityNote?: string;
+    documentaryNote?: string;
     documentaryRequirements: string[];
+    documentaryNestedSection?: NestedSection;
     otherRequirements?: string[];
     benefits?: string[];
     financialBenefits?: FinancialBenefits;
@@ -172,6 +187,7 @@ export const programs: Program[] = [
             ],
         },
         priorityPrograms: {
+            subtitle: 'National Priority Programs — CMO No. 7 Series of 2023',
             national: [
                 { category: '1. Science and Mathematics Education', items: ['Applied Physics/Physics', 'Applied Mathematics/Mathematics', 'Applied Statistics/Statistics', 'Biochemistry', 'Biology', 'Botany', 'Chemistry', 'Environmental Science', 'Geology', 'Human Biology', 'Marine Biology', 'Marine Science', 'Meteorology', 'Molecular Biology and Biotechnology', 'Volcano and Seismology Related Fields'] },
                 { category: '2. Information Technology', items: ['Computer Science', 'Cyber Security', 'Entertainment and Multimedia Computing/Game Development and Animation', 'Information Technology', 'Library and Information Science'] },
@@ -201,13 +217,14 @@ export const programs: Program[] = [
         name: 'Bagong Pilipinas Merit Scholarship Program',
         tagline: 'A flagship merit-based program under Bagong Pilipinas',
         description:
-            'The Bagong Pilipinas Merit Scholarship Program is a government initiative grounded in the Higher Education Act of 1994 and TESDA Act of 1994, and aligned with the directive of President Ferdinand R. Marcos, Jr., to support academically outstanding Filipino students. Implemented by CHED, DepEd, and TESDA, the program provides merit-based financial assistance to those pursuing priority degree programs and TVET courses that address critical workforce needs and hard-to-fill occupations. Funded under the General Appropriations Act for Fiscal Year 2026, it aims to promote equitable access to quality education, develop a highly skilled workforce, and contribute to national development through coordinated guidelines among the implementing agencies.',
+            'The Bagong Pilipinas Merit Scholarship Program is a government initiative grounded in the Higher Education Act of 1994 and TESDA Act of 1994, and aligned with the directive of President Ferdinand R. Marcos, Jr., to support academically outstanding Filipino students. Implemented by CHED, DepEd, and TESDA, the program provides merit-based financial assistance to those pursuing priority degree programs and TVET courses that address critical workforce needs and hard-to-fill occupations. Funded under the General Appropriations Act for Fiscal Year 2026, it aims to promote equitable access to quality education, develop a highly skilled workforce, and contribute to national development through coordinated guidelines among the implementing agencies. It is a merit-based initiative designed by CHED, DepEd, and TESDA for outstanding Filipino students pursuing priority degrees or TVET diploma programs.',
         eligibility: [
             "Open to Filipino SHS graduates with parents' combined annual gross income not exceeding PhP 2,000,000",
             'Higher Education Track: Top 5 of graduating class or with a minimum GWA of 95%',
             'TVET Diploma Track: Minimum GWA of 90%',
             'Must render mandatory service in the Philippines after graduation',
         ],
+        ineligibilityNote: 'An applicant shall be disqualified from the BPMSP under the following conditions:',
         ineligibility: [
             'A foreign student applicant or applicant with dual citizenship',
             'Applicant is an existing recipient of any nationally government-funded scholarships or grants',
@@ -218,6 +235,7 @@ export const programs: Program[] = [
             'Applicant is a transferee or shiftee with credited units as determined by admitting HEIs (Higher Education Institutions)',
             'Applicant with a pending case or a record of disciplinary action in school or workplace',
         ],
+        documentaryNote: 'Applicants must submit the following documents to the BPMSP portal or designated regional offices:',
         documentaryRequirements: [
             "Proof of Citizenship: A copy of the applicant's PSA Birth Certificate",
             'Academic Records — For Higher Education: Certified copy of the Grade 12 Report Card (SF9) and a certificate from the School Head confirming the student is in the Top 5 of the graduating class',
@@ -225,10 +243,22 @@ export const programs: Program[] = [
             'Proof of Income: Latest Income Tax Return (ITR) of parents/guardians or a Certificate of Tax Exemption from the BIR',
             "Proof of Residency: Barangay Certificate or any valid government ID showing the applicant's address",
             'Special Category Proof (if applicable): Certificates for IPs, Solo Parents, PWDs, or victims of calamities to qualify for equity priority',
-            '(HE Track) Applicant must be officially enrolled in one of the identified priority programs offered by Philippine HEIs that meet any of the following: (a) recognized as a COE or COD based on the CHED list; (b) has a Level III–IV program accreditation from recognized accrediting agencies; or (c) approved by the Commission En Banc',
-            '(HE Track) Participating Local University or College must have the latest CHED-Institutional Recognition at the time of application',
-            '(HE Track) All participating HEIs must have signed a Memorandum of Agreement with the CHED Regional Office as a delivering Higher Education Institution',
         ],
+        documentaryNestedSection: {
+            title: 'Specific Eligibility Requirements for Higher Education Track',
+            items: [
+                {
+                    text: 'Applicant must be officially enrolled in one of the identified priority programs offered by Philippine Higher Education Institutions that meet any of the following:',
+                    subItems: [
+                        'The degree program is recognized as a Center of Excellence (COE) or Center of Development (COD) based on the list of COE and COD from CHED',
+                        'The degree program has a level III-IV program accreditation based on latest issuance from recognized accrediting agencies; or',
+                        'The degree program is approved by the Commission En Banc',
+                    ],
+                },
+                { text: 'Participating Local University and College must have the latest CHED-Institutional Recognition at the time of application' },
+                { text: 'All participating HEIs must have signed Memorandum of Agreement with the CHED Regional Office as a delivering Higher Education Institution' },
+            ],
+        },
         otherRequirements: [
             "Applicant's PWD ID issued by C/MSWDO or Certification of Disability issued by the Persons with Disability Affairs Office (PDAO)",
             "Solo Parent ID of applicant or his/her parent issued by C/MSWDO",
@@ -239,15 +269,26 @@ export const programs: Program[] = [
             'Notarized Certificate of Guardianship, issued by the legal guardian of the student applicant, if applicable',
         ],
         priorityPrograms: {
-            subtitle: 'BPMSP Priority Domains',
+            note: 'The total number of available scholarship slots shall be allocated across CHED-identified priority domains as follows:',
             national: [
-                { category: 'CHED-Identified Priority Domains', items: ['Agriculture and Fisheries', 'Creative Industries'] },
+                {
+                    category: '',
+                    items: [
+                        'Agriculture and Fisheries',
+                        'Creative Industries',
+                        'Healthcare and Allied Programs',
+                        'Engineering and Technology',
+                        'Financial Services',
+                        'Teacher Education',
+                        'Digital Technology',
+                        'Science and Mathematics',
+                    ],
+                },
             ],
         },
         financialBenefits: {
             groups: [
                 {
-                    institution: 'Higher Education Track (SUCs, LUCs, and Private HEIs)',
                     columns: ['Component', 'Annual', 'Semestral', 'Trimester', 'Quarter Semester'],
                     rows: [
                         { scholarType: 'TOSF (Applicable to Private HEIs)', tsfLabel: '₱45,000.00', stipend: '₱22,500.00', bookAllowance: '₱15,000.00', total: '₱11,250.00' },
@@ -255,12 +296,24 @@ export const programs: Program[] = [
                     ],
                 },
                 {
-                    institution: 'TVET Track (Technical Vocational Institutions)',
-                    columns: ['Component', 'Per Academic Year'],
+                    tableTitle: 'TUITION AND OTHER SCHOOL FEES (TOSF)',
+                    columns: ['', ''],
                     rows: [
-                        { scholarType: 'TOSF (Eligible TVIs)', tsfLabel: 'Maximum ₱70,000.00', stipend: '', bookAllowance: '', total: '' },
-                        { scholarType: 'Stipend (Public and Private TVIs)', tsfLabel: '₱40,000.00', stipend: '', bookAllowance: '', total: '' },
-                        { scholarType: 'Book and Connectivity Allowance (Public and Private TVIs)', tsfLabel: '₱10,000.00', stipend: '', bookAllowance: '', total: '' },
+                        { scholarType: 'Eligible Technical Vocational Institutions (TVIs)', tsfLabel: 'Maximum of ₱70,000/AY', stipend: '', bookAllowance: '', total: '' },
+                    ],
+                },
+                {
+                    tableTitle: 'Stipend',
+                    columns: ['', ''],
+                    rows: [
+                        { scholarType: 'Scholars enrolled in Public and Private TVIs', tsfLabel: '₱40,000.00/AY', stipend: '', bookAllowance: '', total: '' },
+                    ],
+                },
+                {
+                    tableTitle: 'Book and Connectivity Allowance*',
+                    columns: ['', ''],
+                    rows: [
+                        { scholarType: 'Scholars enrolled in Public and Private TVIs', tsfLabel: '₱10,000.00/AY', stipend: '', bookAllowance: '', total: '' },
                     ],
                 },
             ],
