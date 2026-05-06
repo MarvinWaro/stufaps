@@ -15,6 +15,8 @@ export type FinancialBenefitRow = {
     stipend: string;
     bookAllowance: string;
     total: string;
+    isTotal?: boolean;
+    isSpanned?: boolean;
 };
 
 export type FinancialBenefitGroup = {
@@ -683,31 +685,82 @@ export const programs: Program[] = [
         name: 'Medical Scholarship and Return Service Program',
         tagline: 'Producing physicians for underserved communities',
         description:
-            'Lorem ipsum dolor sit amet. The MSRS program aims to help deserving medical students pursue medical education and training in the field of health and medicine. This shall be accessible to qualified and deserving Filipino students who are willing to undertake the mandatory return service, preferably but not limited to those who are residing in municipally without government physicians, geographically isolated and disadvantaged areas (GIDA) or from the top twenty (20%) provinces and/or municipalities.',
+            'The MSRS program aims to help deserving medical students pursue medical education and training in the field of health and medicine. This shall be accessible to qualified and deserving Filipino students who are willing to undertake the mandatory return service, preferably but not limited to those who are residing in municipality without government physicians, Geographically Isolated and Disadvantaged Areas (GIDA) or from the top twenty (20%) provinces and/or municipalities as identified by the PSA, calamity-prone and conflict areas, low-income class municipalities with poverty incidence; belonging to the ethnic group or indigenous population/communities as certified by respective local government units and the National Commission on Indigenous People (NCIP), dependents of community health volunteers, and those who combined annual family income of less than PhP450,000.00.',
         eligibility: [
             'Must be a Filipino citizen residing in the Philippines',
-            'Must be a graduating student or a graduate of an appropriate undergraduate program identified as a prerequisite for a Doctor of Medicine degree, from any HEI duly recognized by the CHED',
-            'Including a direct entrant to the Integrated Liberal Arts and Medicine (INTARMED) Program who satisfactorily completes the first two (2) years of the Program',
-            'Must have passed the entrance examinations and complied with other related requirements for admission into a Doctor of Medicine degree in the SUC or PHEI',
+            'Must be a graduating student or a graduate of an appropriate undergraduate program identified as a prerequisite for a Doctor of Medicine degree, from any HEI duly recognized by the CHED, including a direct entrant to the Integrated Liberal Arts and Medicine (INTARMED) Program who satisfactorily completes the first two (2) years of the Program: Provided, that deserving incoming second year medical students and those in the higher year levels of the Doctor of Medicine Program shall also be covered under this Act, as long as they have complied with the academic requirements and retention policies of the school in the past terms preceding their scholarship application',
+            'Must have passed the entrance examinations and complied with other related requirements for admission into a Doctor of Medicine degree in the SUC or PHEI where the scholar intends to enroll as well as the other requirements of the CHED and the DOH',
             'Must obtain a National Medical Admission Test (NMAT) score mandated by the CHED and required by the SUC or PHEI where the student intends to enroll in',
         ],
-        documentaryRequirements: [
-            'Duly accomplished application form',
-            'Certified true copy of PSA Birth Certificate',
-            'Certified true copy of Transcript of Records and Diploma',
-            'Certificate of Good Moral Character',
-            'NMAT Result',
-            'Notice of Acceptance from the SUC or PHEI',
-            'Medical Certificate of fitness to study medicine',
-            'Latest Income Tax Return (ITR) of parents or legal guardians',
-            'Affidavit of No Existing Scholarship Grant',
-            'Two (2) pieces of recent 2x2 ID photos',
+        documentaryRequirements: [],
+        documentaryNestedSections: [
+            {
+                title: 'General',
+                items: [
+                    { text: 'Proof of Filipino citizenship such as any government-issued document showing proof of Filipino citizenship, including, but not limited, to certified true copy of birth certificate, PHILSYS ID;' },
+                    { text: 'Certificate of Good Moral Character;' },
+                    {
+                        text: 'Additional requirements for priority groups (as applicable):',
+                        subItems: [
+                            'Certificate of Residency from Barangay;',
+                            'Certification as members of indigenous people or minority group/national commission on indigenous people (NCIP) certificate; and',
+                            'Tax exemption/Tax Declaration (from BIR) or social case study duly signed by a registered social worker where the applicant resides.',
+                        ],
+                    },
+                ],
+            },
+            {
+                title: 'Specific',
+                items: [
+                    { text: 'Certification of Acceptance from the SUCs and PHEIs (i.e. have passed the admission requirements, standards and policies of chosen HEI as well as the other requirements of the CHED); and' },
+                    { text: 'Affidavit of No Existing Scholarship Grant (i.e. have not availed of any other scholarship grants or with return service obligation at the time of application or at the same period).' },
+                ],
+            },
         ],
-        benefits: [
-            'Tuition and miscellaneous fees',
-            'Monthly stipend and book allowance',
-            'Mandatory return service in underserved communities upon graduation',
-        ],
+        financialBenefits: {
+            groups: [
+                {
+                    tableTitle: 'A. Tuition and Other School Fees (TOSF)',
+                    columns: ['Type of HEI', 'TF per Semester', 'Other School Fees per Semester'],
+                    rows: [
+                        { scholarType: 'SUC', tsfLabel: 'Actual', stipend: 'Actual', bookAllowance: '', total: '' },
+                        { scholarType: 'Private', tsfLabel: 'Actual TOSFs but not exceeding ₱100,000.00', stipend: '', bookAllowance: '', total: '', isSpanned: true },
+                    ],
+                },
+                {
+                    tableTitle: 'B. Subsidy and Other Allowances (1 to 4 Year Levels)',
+                    columns: ['Allowances', 'Per Semester', 'Per AY'],
+                    rows: [
+                        { scholarType: 'Book Allowance', tsfLabel: '13,000', stipend: '26,000', bookAllowance: '', total: '' },
+                        { scholarType: 'Clothing/Uniform Allowance', tsfLabel: '3,500', stipend: '7,000', bookAllowance: '', total: '' },
+                        { scholarType: 'Miscellaneous Allowance (to include Connectivity Allowance)', tsfLabel: '6,000', stipend: '12,000', bookAllowance: '', total: '' },
+                        { scholarType: 'Living Subsidy (5,000 × 6 mos.)', tsfLabel: '30,000', stipend: '60,000', bookAllowance: '', total: '' },
+                        { scholarType: 'Lodging Allowance (5,000 × 6 mos.)', tsfLabel: '30,000', stipend: '60,000', bookAllowance: '', total: '' },
+                        { scholarType: 'Transportation Allowance (1,000 × 6 mos.)', tsfLabel: '6,000', stipend: '12,000', bookAllowance: '', total: '' },
+                        { scholarType: 'Total', tsfLabel: '₱88,500', stipend: '₱177,000', bookAllowance: '', total: '', isTotal: true },
+                    ],
+                },
+                {
+                    tableTitle: 'C. Subsidy and Allowances (5th Year Internship)',
+                    columns: ['Allowances', 'Per Semester', 'Per AY'],
+                    rows: [
+                        { scholarType: 'Living Subsidy (5,000 × 6 mos.)', tsfLabel: '30,000', stipend: '60,000', bookAllowance: '', total: '' },
+                        { scholarType: 'Lodging Allowance (5,000 × 6 mos.)', tsfLabel: '30,000', stipend: '60,000', bookAllowance: '', total: '' },
+                        { scholarType: 'Transportation Allowance (1,000 × 6 mos.)', tsfLabel: '6,000', stipend: '12,000', bookAllowance: '', total: '' },
+                        { scholarType: 'One-time Board/Licensure Examination Review and Application Fees', tsfLabel: '', stipend: '16,000', bookAllowance: '', total: '' },
+                        { scholarType: 'Total', tsfLabel: '₱66,000', stipend: '₱148,000', bookAllowance: '', total: '', isTotal: true },
+                    ],
+                },
+                {
+                    tableTitle: 'D. Insurance',
+                    columns: ['Coverage'],
+                    rows: [
+                        { scholarType: 'Annual Medical Insurance/Philhealth (amount prescribed by the Philippine Health Insurance Corporation (PHIC))', tsfLabel: '', stipend: '', bookAllowance: '', total: '' },
+                        { scholarType: 'GSIS Accident Insurance (amount prescribed by Government Service Insurance System (GSIS))', tsfLabel: '', stipend: '', bookAllowance: '', total: '' },
+                    ],
+                },
+            ],
+        },
         icon: Stethoscope,
         accent: 'from-fuchsia-500 to-pink-600',
     },

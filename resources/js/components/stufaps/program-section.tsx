@@ -306,6 +306,23 @@ function FinancialBenefitsCard({ benefits }: { benefits: FinancialBenefits }) {
                                     <tbody className="divide-y divide-slate-100">
                                         {group.rows.map((row) => {
                                             const cells = [row.scholarType, row.tsfLabel, row.stipend, row.bookAllowance, row.total];
+                                            if (row.isSpanned) {
+                                                return (
+                                                    <tr key={row.scholarType} className="hover:bg-slate-50/60">
+                                                        <td className="px-4 py-3 font-semibold text-slate-900">{cells[0]}</td>
+                                                        <td colSpan={colCount - 1} className="px-4 py-3 text-slate-600">{cells[1]}</td>
+                                                    </tr>
+                                                );
+                                            }
+                                            if (row.isTotal) {
+                                                return (
+                                                    <tr key={row.scholarType} className="bg-slate-50">
+                                                        {cells.slice(0, colCount).map((cell, i) => (
+                                                            <td key={i} className={`px-4 py-3 font-bold${i === 0 ? ' text-right text-slate-900' : i === colCount - 1 ? ' text-right text-sky-600' : ' text-slate-900'}`}>{cell}</td>
+                                                        ))}
+                                                    </tr>
+                                                );
+                                            }
                                             return (
                                                 <tr key={row.scholarType} className="hover:bg-slate-50/60">
                                                     {cells.slice(0, colCount).map((cell, i) => (
