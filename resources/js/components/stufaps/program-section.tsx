@@ -169,7 +169,7 @@ function RequirementCard({
             )}
             {nestedSection && (
                 <div className={cn('mt-5 pt-5', items.length > 0 && 'border-t border-slate-100')}>
-                    <p className="mb-3 text-sm font-semibold text-slate-700">{nestedSection.title}</p>
+                    {nestedSection.title && <p className="mb-3 text-sm font-semibold text-slate-700">{nestedSection.title}</p>}
                     <ul className="space-y-3">
                         {nestedSection.items.map((item, i) => (
                             <li key={i} className="flex gap-3 text-sm leading-relaxed text-slate-600">
@@ -194,7 +194,7 @@ function RequirementCard({
             )}
             {nestedSections && nestedSections.map((ns, nsIndex) => (
                 <div key={nsIndex} className={cn('mt-5 pt-5 border-t border-slate-100', nsIndex === 0 && !items.length && 'border-t-0')}>
-                    <p className="mb-3 text-sm font-semibold text-slate-700">{ns.title}</p>
+                    {ns.title && <p className="mb-3 text-sm font-semibold text-slate-700">{ns.title}</p>}
                     <ul className="space-y-3">
                         {ns.items.map((item, i) => (
                             <li key={i} className="flex gap-3 text-sm leading-relaxed text-slate-600">
@@ -306,6 +306,23 @@ function FinancialBenefitsCard({ benefits }: { benefits: FinancialBenefits }) {
                                     <tbody className="divide-y divide-slate-100">
                                         {group.rows.map((row) => {
                                             const cells = [row.scholarType, row.tsfLabel, row.stipend, row.bookAllowance, row.total];
+                                            if (row.isSpanned) {
+                                                return (
+                                                    <tr key={row.scholarType} className="hover:bg-slate-50/60">
+                                                        <td className="px-4 py-3 font-semibold text-slate-900">{cells[0]}</td>
+                                                        <td colSpan={colCount - 1} className="px-4 py-3 text-slate-600">{cells[1]}</td>
+                                                    </tr>
+                                                );
+                                            }
+                                            if (row.isTotal) {
+                                                return (
+                                                    <tr key={row.scholarType} className="bg-slate-50">
+                                                        {cells.slice(0, colCount).map((cell, i) => (
+                                                            <td key={i} className={`px-4 py-3 font-bold${i === 0 ? ' text-right text-slate-900' : i === colCount - 1 ? ' text-right text-sky-600' : ' text-slate-900'}`}>{cell}</td>
+                                                        ))}
+                                                    </tr>
+                                                );
+                                            }
                                             return (
                                                 <tr key={row.scholarType} className="hover:bg-slate-50/60">
                                                     {cells.slice(0, colCount).map((cell, i) => (
@@ -344,16 +361,37 @@ function PriorityProgramsCard({ programs }: { programs: PriorityPrograms }) {
                 )}
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                     {programs.national.map((cat) => (
-                        <div key={cat.category || 'default'} className="rounded-xl border border-slate-100 bg-slate-50 p-4">
+                        <div
+                            key={cat.category || 'default'}
+                            className={cn(
+                                'rounded-xl border border-slate-100 bg-slate-50 p-4',
+                                programs.itemColumns && programs.itemColumns > 1 && 'sm:col-span-2',
+                            )}
+                        >
                             {cat.category && <p className="mb-2 text-xs font-bold text-violet-700">{cat.category}</p>}
-                            <ul className="space-y-1">
-                                {cat.items.map((item) => (
-                                    <li key={item} className="flex gap-2 text-xs leading-relaxed text-slate-600">
-                                        <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-violet-400" />
-                                        {item}
-                                    </li>
-                                ))}
-                            </ul>
+                            {programs.itemColumns === 2 ? (
+                                <div className="flex gap-6">
+                                    {[cat.items.slice(0, Math.ceil(cat.items.length / 2)), cat.items.slice(Math.ceil(cat.items.length / 2))].map((half, hi) => (
+                                        <ul key={hi} className="flex-1 space-y-1">
+                                            {half.map((item) => (
+                                                <li key={item} className="flex min-w-0 gap-2 text-xs leading-relaxed text-slate-600">
+                                                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-violet-400" />
+                                                    <span className="min-w-0">{item}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    ))}
+                                </div>
+                            ) : (
+                                <ul className="space-y-1">
+                                    {cat.items.map((item) => (
+                                        <li key={item} className="flex gap-2 text-xs leading-relaxed text-slate-600">
+                                            <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-violet-400" />
+                                            {item}
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
                         </div>
                     ))}
                 </div>

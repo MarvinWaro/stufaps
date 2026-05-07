@@ -15,6 +15,8 @@ export type FinancialBenefitRow = {
     stipend: string;
     bookAllowance: string;
     total: string;
+    isTotal?: boolean;
+    isSpanned?: boolean;
 };
 
 export type FinancialBenefitGroup = {
@@ -59,7 +61,7 @@ export type NestedItem = {
 };
 
 export type NestedSection = {
-    title: string;
+    title?: string;
     items: NestedItem[];
 };
 
@@ -67,6 +69,7 @@ export type PriorityPrograms = {
     title?: string;
     subtitle?: string;
     note?: string;
+    itemColumns?: number;
     national: NationalCategory[];
     regional?: string[];
 };
@@ -591,23 +594,90 @@ export const programs: Program[] = [
         name: 'Agricultural Competitiveness Enhancement Fund – Grants-in-Aid for Higher Education Program',
         tagline: 'Promoting agriculture & fisheries through education',
         description:
-            'Lorem ipsum dolor sit amet. The ACEF-GIAHEP aims to promote the development of agriculture and fisheries by increasing the number of graduates in higher education who are trained in the scientific bases of thought, entrepreneurial skills and technical competencies in the areas of agriculture, forestry, fisheries, and veterinary medicine education.',
+            'The ACEF-GIAHEP aims to promote the development of agriculture and fisheries by increasing the number of graduates in higher education who are trained in the scientific habit of thought, entrepreneurial skills and technical competencies in the areas of agriculture, forestry, fisheries, and veterinary medicine education. It is open to qualified and deserving undergraduate students who will enroll or are currently enrolled in any CHED recognized higher education institution in the areas of agriculture, forestry, fisheries, veterinary medicine education and related agricultural education programs.',
         eligibility: [
             'Filipino citizen',
-            'Graduating high school students, high school graduates, or with earned college academic units relevant to the identified degree program',
+            'Graduating high school students; High school graduates; or With earned college academic units relevant to the identified degree programs',
             'Will enroll or are currently enrolled in recognized programs of PHEIs or authorized programs of SUCs/LUCs in agriculture, forestry, fisheries, veterinary medicine education and related agricultural education programs',
             'Combined annual gross income of parents/guardians not to exceed Four Hundred Thousand Pesos (PhP400,000.00)',
             'Preferably dependent of registered farmers and/or fisherfolks in Registry System for Basic Sectors in Agriculture (RSBSA) and other registry systems',
-            'Must not be a beneficiary of any government-funded student financial assistance program',
-            'Must not be convicted of crimes involving moral turpitude',
+            'Must not be a beneficiary of any government-funded student financial assistance program; and',
+            'Must not be convicted of a crime involving moral turpitude',
         ],
-        documentaryRequirements: [
-            'Certified true copy of PSA Birth Certificate',
-            'For graduating senior high graduates: duly certified true copy of grades for Grade 11 and 1st semester of Grade 12',
-            'For applicants with earned units in college: duly certified copy of grades for the latest semester/term attended',
-            'Proof of income: ANY of the following: Latest ITR of parents or guardian (if employed); Certificate of Tax Exemption from the Bureau of Internal Revenue (BIR); Certificate of No Income from BIR; Certificate / Case Study Report from City/Municipal Social Welfare and Development Office (C/MSWDO)',
-            'Proof that the student applicant belonged to several groups (if applicable)',
-        ],
+        documentaryRequirements: [],
+        documentaryNestedSection: {
+            items: [
+                { text: 'a. Certified true copy of Birth Certificate;' },
+                {
+                    text: 'b. Academic Requirement:',
+                    subItems: [
+                        '1. For senior high school graduates — Form 138;',
+                        '2. For graduating senior high school students — duly certified true copy of grades for Grade 11 and 1st semester of Grade 12; and',
+                        '3. For applicants with earned units in college — duly certified copy of grades for the latest semester/term attended;',
+                    ],
+                },
+                {
+                    text: 'c. Proof of income — ANY of the following:',
+                    subItems: [
+                        '1. Latest Income Tax Return (ITR) of parent/s or guardian/s if employed;',
+                        '2. Certificate of Tax Exemption from the Bureau of Internal Revenue (BIR);',
+                        '3. Certificate of No Income from BIR; or',
+                        '4. Certificate/Case Study Report from City/Municipal Social Welfare and Development Office (C/MSWD).',
+                    ],
+                },
+                { text: 'd. Proof that the student applicant belonged to special group/s (if applicable).' },
+            ],
+        },
+        priorityPrograms: {
+            title: 'Priority Programs',
+            itemColumns: 2,
+            national: [
+                {
+                    category: '',
+                    items: [
+                        'Bachelor of Science in Agriculture',
+                        'Bachelor of Science in Forestry',
+                        'Bachelor of Science in Agroforestry',
+                        'Bachelor of Science in Fisheries',
+                        'Bachelor of Science in Veterinary Technology',
+                        'Doctor of Veterinary Medicine',
+                        'Other Agricultural Related Courses',
+                    ],
+                },
+            ],
+        },
+        financialBenefits: {
+            groups: [
+                {
+                    institution: 'a) Private Higher Education Institutions (PHEIs)',
+                    summary: [
+                        '₱30,000.00 PER SEMESTER · ₱60,000.00 PER AY',
+                        'Tuition and Other School Fees — ₱10,000.00',
+                        'Stipend — ₱17,500.00',
+                        'Book Allowance — ₱2,500.00',
+                    ],
+                    columns: ['Period', 'TOSF', 'Stipend', 'Book Allowance', 'Total'],
+                    rows: [
+                        { scholarType: 'Annual', tsfLabel: '₱20,000.00', stipend: '₱35,000.00', bookAllowance: '₱5,000.00', total: '₱60,000.00' },
+                        { scholarType: 'Semestral', tsfLabel: '₱10,000.00', stipend: '₱17,500.00', bookAllowance: '₱2,500.00', total: '₱30,000.00' },
+                    ],
+                },
+                {
+                    institution: 'b) State / Local Universities and Colleges (SUCs/LUCs)',
+                    summary: [
+                        '₱20,000.00 PER SEMESTER · ₱40,000.00 PER AY',
+                        'Tuition and Other School Fees — Free',
+                        'Stipend — ₱17,500.00',
+                        'Book Allowance — ₱2,500.00',
+                    ],
+                    columns: ['Period', 'TOSF', 'Stipend', 'Book Allowance', 'Total'],
+                    rows: [
+                        { scholarType: 'Annual', tsfLabel: 'FREE', stipend: '₱35,000.00', bookAllowance: '₱5,000.00', total: '₱40,000.00' },
+                        { scholarType: 'Semestral', tsfLabel: 'FREE', stipend: '₱17,500.00', bookAllowance: '₱2,500.00', total: '₱20,000.00' },
+                    ],
+                },
+            ],
+        },
         icon: Tractor,
         accent: 'from-amber-500 to-orange-600',
     },
@@ -617,31 +687,82 @@ export const programs: Program[] = [
         name: 'Medical Scholarship and Return Service Program',
         tagline: 'Producing physicians for underserved communities',
         description:
-            'Lorem ipsum dolor sit amet. The MSRS program aims to help deserving medical students pursue medical education and training in the field of health and medicine. This shall be accessible to qualified and deserving Filipino students who are willing to undertake the mandatory return service, preferably but not limited to those who are residing in municipally without government physicians, geographically isolated and disadvantaged areas (GIDA) or from the top twenty (20%) provinces and/or municipalities.',
+            'The MSRS program aims to help deserving medical students pursue medical education and training in the field of health and medicine. This shall be accessible to qualified and deserving Filipino students who are willing to undertake the mandatory return service, preferably but not limited to those who are residing in municipality without government physicians, Geographically Isolated and Disadvantaged Areas (GIDA) or from the top twenty (20%) provinces and/or municipalities as identified by the PSA, calamity-prone and conflict areas, low-income class municipalities with poverty incidence; belonging to the ethnic group or indigenous population/communities as certified by respective local government units and the National Commission on Indigenous People (NCIP), dependents of community health volunteers, and those who combined annual family income of less than PhP450,000.00.',
         eligibility: [
             'Must be a Filipino citizen residing in the Philippines',
-            'Must be a graduating student or a graduate of an appropriate undergraduate program identified as a prerequisite for a Doctor of Medicine degree, from any HEI duly recognized by the CHED',
-            'Including a direct entrant to the Integrated Liberal Arts and Medicine (INTARMED) Program who satisfactorily completes the first two (2) years of the Program',
-            'Must have passed the entrance examinations and complied with other related requirements for admission into a Doctor of Medicine degree in the SUC or PHEI',
+            'Must be a graduating student or a graduate of an appropriate undergraduate program identified as a prerequisite for a Doctor of Medicine degree, from any HEI duly recognized by the CHED, including a direct entrant to the Integrated Liberal Arts and Medicine (INTARMED) Program who satisfactorily completes the first two (2) years of the Program: Provided, that deserving incoming second year medical students and those in the higher year levels of the Doctor of Medicine Program shall also be covered under this Act, as long as they have complied with the academic requirements and retention policies of the school in the past terms preceding their scholarship application',
+            'Must have passed the entrance examinations and complied with other related requirements for admission into a Doctor of Medicine degree in the SUC or PHEI where the scholar intends to enroll as well as the other requirements of the CHED and the DOH',
             'Must obtain a National Medical Admission Test (NMAT) score mandated by the CHED and required by the SUC or PHEI where the student intends to enroll in',
         ],
-        documentaryRequirements: [
-            'Duly accomplished application form',
-            'Certified true copy of PSA Birth Certificate',
-            'Certified true copy of Transcript of Records and Diploma',
-            'Certificate of Good Moral Character',
-            'NMAT Result',
-            'Notice of Acceptance from the SUC or PHEI',
-            'Medical Certificate of fitness to study medicine',
-            'Latest Income Tax Return (ITR) of parents or legal guardians',
-            'Affidavit of No Existing Scholarship Grant',
-            'Two (2) pieces of recent 2x2 ID photos',
+        documentaryRequirements: [],
+        documentaryNestedSections: [
+            {
+                title: 'General',
+                items: [
+                    { text: 'Proof of Filipino citizenship such as any government-issued document showing proof of Filipino citizenship, including, but not limited, to certified true copy of birth certificate, PHILSYS ID;' },
+                    { text: 'Certificate of Good Moral Character;' },
+                    {
+                        text: 'Additional requirements for priority groups (as applicable):',
+                        subItems: [
+                            'Certificate of Residency from Barangay;',
+                            'Certification as members of indigenous people or minority group/national commission on indigenous people (NCIP) certificate; and',
+                            'Tax exemption/Tax Declaration (from BIR) or social case study duly signed by a registered social worker where the applicant resides.',
+                        ],
+                    },
+                ],
+            },
+            {
+                title: 'Specific',
+                items: [
+                    { text: 'Certification of Acceptance from the SUCs and PHEIs (i.e. have passed the admission requirements, standards and policies of chosen HEI as well as the other requirements of the CHED); and' },
+                    { text: 'Affidavit of No Existing Scholarship Grant (i.e. have not availed of any other scholarship grants or with return service obligation at the time of application or at the same period).' },
+                ],
+            },
         ],
-        benefits: [
-            'Tuition and miscellaneous fees',
-            'Monthly stipend and book allowance',
-            'Mandatory return service in underserved communities upon graduation',
-        ],
+        financialBenefits: {
+            groups: [
+                {
+                    tableTitle: 'A. Tuition and Other School Fees (TOSF)',
+                    columns: ['Type of HEI', 'TF per Semester', 'Other School Fees per Semester'],
+                    rows: [
+                        { scholarType: 'SUC', tsfLabel: 'Actual', stipend: 'Actual', bookAllowance: '', total: '' },
+                        { scholarType: 'Private', tsfLabel: 'Actual TOSFs but not exceeding ₱100,000.00', stipend: '', bookAllowance: '', total: '', isSpanned: true },
+                    ],
+                },
+                {
+                    tableTitle: 'B. Subsidy and Other Allowances (1 to 4 Year Levels)',
+                    columns: ['Allowances', 'Per Semester', 'Per AY'],
+                    rows: [
+                        { scholarType: 'Book Allowance', tsfLabel: '13,000', stipend: '26,000', bookAllowance: '', total: '' },
+                        { scholarType: 'Clothing/Uniform Allowance', tsfLabel: '3,500', stipend: '7,000', bookAllowance: '', total: '' },
+                        { scholarType: 'Miscellaneous Allowance (to include Connectivity Allowance)', tsfLabel: '6,000', stipend: '12,000', bookAllowance: '', total: '' },
+                        { scholarType: 'Living Subsidy (5,000 × 6 mos.)', tsfLabel: '30,000', stipend: '60,000', bookAllowance: '', total: '' },
+                        { scholarType: 'Lodging Allowance (5,000 × 6 mos.)', tsfLabel: '30,000', stipend: '60,000', bookAllowance: '', total: '' },
+                        { scholarType: 'Transportation Allowance (1,000 × 6 mos.)', tsfLabel: '6,000', stipend: '12,000', bookAllowance: '', total: '' },
+                        { scholarType: 'Total', tsfLabel: '₱88,500', stipend: '₱177,000', bookAllowance: '', total: '', isTotal: true },
+                    ],
+                },
+                {
+                    tableTitle: 'C. Subsidy and Allowances (5th Year Internship)',
+                    columns: ['Allowances', 'Per Semester', 'Per AY'],
+                    rows: [
+                        { scholarType: 'Living Subsidy (5,000 × 6 mos.)', tsfLabel: '30,000', stipend: '60,000', bookAllowance: '', total: '' },
+                        { scholarType: 'Lodging Allowance (5,000 × 6 mos.)', tsfLabel: '30,000', stipend: '60,000', bookAllowance: '', total: '' },
+                        { scholarType: 'Transportation Allowance (1,000 × 6 mos.)', tsfLabel: '6,000', stipend: '12,000', bookAllowance: '', total: '' },
+                        { scholarType: 'One-time Board/Licensure Examination Review and Application Fees', tsfLabel: '', stipend: '16,000', bookAllowance: '', total: '' },
+                        { scholarType: 'Total', tsfLabel: '₱66,000', stipend: '₱148,000', bookAllowance: '', total: '', isTotal: true },
+                    ],
+                },
+                {
+                    tableTitle: 'D. Insurance',
+                    columns: ['Coverage'],
+                    rows: [
+                        { scholarType: 'Annual Medical Insurance/Philhealth (amount prescribed by the Philippine Health Insurance Corporation (PHIC))', tsfLabel: '', stipend: '', bookAllowance: '', total: '' },
+                        { scholarType: 'GSIS Accident Insurance (amount prescribed by Government Service Insurance System (GSIS))', tsfLabel: '', stipend: '', bookAllowance: '', total: '' },
+                    ],
+                },
+            ],
+        },
         icon: Stethoscope,
         accent: 'from-fuchsia-500 to-pink-600',
     },
@@ -651,23 +772,161 @@ export const programs: Program[] = [
         name: 'Scholarship Program for Coconut Farmers and their Families',
         tagline: 'Empowering coconut farming communities through education',
         description:
-            'Lorem ipsum dolor sit amet. The scholarship program aims to raise social equity of coconut farmers and ultimately alleviate poverty through the provision of quality education to coconut farmers and/or their dependents. The scholarship program is ultimately expected to improve agricultural productivity and modernization in the coconut industry by raising the knowledge of coconut farmers and/or their dependents on scientific advances in agricultural technology and other related fields, motivating the younger generation to be engaged in the agriculture sector.',
+            'The scholarship program aims to raise social equity of coconut farmers and ultimately alleviate poverty through the provision of quality education to coconut farmers and/or their dependents. The scholarship program is ultimately expected to improve agricultural productivity and modernization in the coconut industry by raising the knowledge of coconut farmers and/or their dependents on scientific advances in agricultural technology and other related fields and motivate the younger generation to be engaged in the agriculture sector.',
         eligibility: [
             'Filipino citizen',
-            'Must be a registered coconut farmer or a dependent of one',
-            'Combined parental annual gross income should not exceed PhP400,000',
-            'Must be enrolled or about to enroll in a CHED-recognized HEI in any approved degree program related to agriculture, fisheries, food technology, or coconut industry development',
+            'Graduating high school student/high school graduate with a general weighted average grade (GWA) of 80% or its equivalent; or college student with earned academic units relevant to the degree programs identified by PCA with a GWA of 80% the previous semester or its equivalent',
+            'Pass the entry level requirements of identified State Universities and Colleges (SUCs)',
+            'Not be a recipient of any government-funded financial assistance program',
+            'Duly registered coconut farmer in the NCFRS or his/her dependent',
+            'Must have a combined annual gross income of parents not exceeding ₱300,000.00',
         ],
-        documentaryRequirements: [
-            'PSA Birth Certificate',
-            'Form 138 / Latest Transcript of Records',
-            'Certificate of Good Moral Character',
-            'Certified true copy of latest grades',
-            'PCA Certification of registered coconut farmer (parent/guardian/applicant)',
-            'Latest ITR or Certificate of Tax Exemption from BIR',
-            'Notice of Acceptance from the HEI',
-            'Two (2) pieces of 2x2 ID photos',
+        documentaryRequirements: [],
+        documentaryNestedSection: {
+            items: [
+                { text: '1. Birth Certificate issued by the Local Civil Registry or Philippine Statistics Authority (PSA)' },
+                {
+                    text: '2. Academic:',
+                    subItems: [
+                        '2.1. For senior high school students — duly certified copy of the grades for Grade 11 and first semester for Grade 12;',
+                        '2.2. For senior high school graduates — Form 138; and',
+                        '2.3. For applicants with earned units or currently enrolled in college — duly Certified Copy of Grades for the latest semester/term attended.',
+                    ],
+                },
+                { text: '3. PCA Certification, issued by PCA Regional Office (PCA-RO) to NCFRS registered coconut farmers/farmworkers upon the endorsement of the PCA Provincial Office and/or Local Coconut Industry Development Councils (LCIDCs), small coconut farmers organizations, federations, and cooperatives. Note: Only one family member shall be allowed to apply for the scholarship;' },
+                { text: '4. Certificate of Good Moral Character from the last school attended;' },
+                {
+                    text: '5. Proof of income — any of the following:',
+                    subItems: [
+                        '5.1. Latest Income Tax Return (ITR) of applicant and/or spouse/parents/guardians if employed;',
+                        '5.2. Certificate of Tax Exemption from the Bureau of Internal Revenue (BIR);',
+                        '5.3. Certificate of No Income from BIR;',
+                        '5.4. Certificate of Indigency from their Barangay; or',
+                        '5.5. Certificate/Case Study from Department of Social Welfare and Development (DSWD)',
+                    ],
+                },
+                { text: '6. Notice of admission from the HEI with collegiate degree offerings;' },
+                { text: '7. Proof that the student applicant belonged to special group/s (if applicable); and' },
+                { text: '8. Original Barangay Certification that parents/guardians and siblings had never attended college/university (if applicable).' },
+            ],
+        },
+        otherRequirementsNote:
+            'Proof that the student applicant belonged to special group/s (if applicable); and Original Barangay Certification that parents/guardians and siblings had never attended college/university (if applicable).',
+        otherRequirements: [
+            "Applicant's PWD ID issued by C/MSWDO or Certification of Disability issued by the Persons with Disability Affairs Office (PDAO);",
+            "Solo Parent ID of applicant or his/her parent issued by C/MSWDO;",
+            "Applicant's Senior Citizen ID issued by C/MSWDO;",
+            'Certification issued by Department of Human Settlements and Urban Development (DHSUD) or C/MSWDO to Underprivileged and Homeless family;',
+            'Social Case Study Report issued by C/MSWDO covered under Magna Carta for the Poor and/or First-Generation Students;',
+            'Certification issued by the National Commission on Indigenous Peoples (NCIP) to the Indigenous People.',
+            'Notarized Certificate of Guardianship, issued by the legal guardian of the student applicant, if applicable.',
         ],
+        financialBenefits: {
+            groups: [
+                {
+                    tableTitle: '12.1. Regular Allowances',
+                    columns: ['Type', 'Total Cost Per Semestral', 'Total Cost Per Academic Year'],
+                    rows: [
+                        {
+                            scholarType: 'a. Stipend (which includes food, educational tours, transportation, projects, medical insurance, internet use, communication)',
+                            tsfLabel: '35,000.00',
+                            stipend: '70,000.00',
+                            bookAllowance: '',
+                            total: '',
+                        },
+                        {
+                            scholarType: 'b. Book allowance and other learning materials',
+                            tsfLabel: '5,000.00',
+                            stipend: '10,000.00',
+                            bookAllowance: '',
+                            total: '',
+                        },
+                        { scholarType: 'Total', tsfLabel: '', stipend: '₱80,000.00', bookAllowance: '', total: '', isTotal: true },
+                    ],
+                },
+                {
+                    tableTitle: '12.2. Other Allowances',
+                    columns: ['Type', 'Total Cost'],
+                    rows: [
+                        {
+                            scholarType: 'a. Thesis and/or OJT Allowance',
+                            tsfLabel: '75,000.00',
+                            stipend: '',
+                            bookAllowance: '',
+                            total: '',
+                        },
+                        {
+                            scholarType: 'b. One-time attendance in local conference/fora (should be related to the undergraduate program and to be given during the junior or senior standing. The activity should not be on the same HEI where the beneficiary is enrolled)',
+                            tsfLabel: '10,000.00',
+                            stipend: '',
+                            bookAllowance: '',
+                            total: '',
+                        },
+                        {
+                            scholarType: 'c. One-time financial assistance for the purchase of a laptop (to be given during the first year of scholarship grant)',
+                            tsfLabel: '30,000.00',
+                            stipend: '',
+                            bookAllowance: '',
+                            total: '',
+                        },
+                        { scholarType: 'Total', tsfLabel: '₱115,000.00', stipend: '', bookAllowance: '', total: '', isTotal: true },
+                    ],
+                },
+            ],
+        },
+        priorityPrograms: {
+            title: 'Priority Programs',
+            national: [
+                {
+                    category: '',
+                    items: [
+                        'Bachelor of Science in Agriculture',
+                        'Bachelor of Science in Agricultural Biotechnology',
+                        'Bachelor of Science in Agricultural and Biosystems Engineering',
+                        'Bachelor of Science in Agribusiness / Agribusiness Management',
+                        'Bachelor of Science in Agricultural Economics',
+                        'Bachelor of Science in Agricultural Chemistry',
+                        'Bachelor of Science in Agricultural Entrepreneurship',
+                        'Bachelor of Science in Agricultural Engineering',
+                        'Bachelor of Science in Agricultural Extension Education',
+                        'Bachelor of Science in Agricultural Technology',
+                        'Bachelor of Science in Agri-fisheries',
+                        'Bachelor of Science in Agroforestry',
+                        'Bachelor of Science in Architectural Engineering',
+                        'Bachelor of Science in Biology',
+                        'Bachelor of Science in Biochemistry',
+                        'Bachelor of Science in Business Administration',
+                        'Bachelor of Science in Dairy Technology',
+                        'Bachelor of Science in Development Management',
+                        'Bachelor of Science in Development Communication',
+                    ],
+                },
+                {
+                    category: '',
+                    items: [
+                        'Bachelor of Science in Economics / Bachelor of Arts in Economics',
+                        'Bachelor of Science in Environmental Engineering',
+                        'Bachelor of Science in Environmental Science',
+                        'Bachelor of Science in Fisheries',
+                        'Bachelor of Science in Food Engineering',
+                        'Bachelor of Science in Food Science and Technology',
+                        'Bachelor of Science in Forestry',
+                        'Bachelor of Science in Manufacturing Engineering / Manufacturing Technology Engineering',
+                        'Bachelor of Science in Marine Biology',
+                        'Bachelor of Science in Microbiology',
+                        'Bachelor of Science in Political Science',
+                        'Bachelor of Science in Physics',
+                        'Bachelor of Science in Psychology',
+                        'Bachelor of Science in Public Administration',
+                        'Bachelor of Science in Rural Development',
+                        'Bachelor of Science in Social Work',
+                        'Bachelor of Science in Statistics',
+                        'Bachelor of Science in Tourism',
+                        'Bachelor of Science in Tourism Management / Agri Eco-Tourism Management',
+                    ],
+                },
+            ],
+        },
         icon: TreePalm,
         accent: 'from-lime-500 to-green-600',
     },
