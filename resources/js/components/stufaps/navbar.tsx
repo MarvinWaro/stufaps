@@ -56,7 +56,10 @@ export function Navbar() {
                 <button onClick={() => handleClick('home')} className="flex items-center gap-2.5 font-bold tracking-tight">
                     <img src="https://srms-bucket.sgp1.cdn.digitaloceanspaces.com/srms-images/ched.png" alt="CHED" className="h-10 w-10 object-contain" />
                     <img src="https://srms-bucket.sgp1.cdn.digitaloceanspaces.com/srms-images/bp-logo.png" alt="Bagong Pilipinas" className="h-10 w-10 object-contain" />
-                    <span className={cn('text-lg', scrolled ? 'text-slate-900' : 'text-white')}>STUFAPS</span>
+                    <span className="flex flex-col items-start leading-tight">
+                        <span className={cn('text-lg', scrolled ? 'text-slate-900' : 'text-white')}>STUFAPS</span>
+                        <span className={cn('text-[10px] font-medium tracking-wider uppercase', scrolled ? 'text-slate-500' : 'text-white/70')}>Regional Office XII</span>
+                    </span>
                 </button>
 
                 <nav className="hidden items-center gap-1 lg:flex">

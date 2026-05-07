@@ -39,24 +39,20 @@ export function Hero() {
 
             <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
                 <div className="animate-[fadeInUp_0.8s_ease-out] text-center lg:text-left">
-                    <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-xs font-medium tracking-wider uppercase backdrop-blur-sm">
-                        <span className="relative flex h-2 w-2">
-                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75" />
-                            <span className="relative inline-flex h-2 w-2 rounded-full bg-sky-500" />
-                        </span>
-                        Now Accepting Applications
-                    </span>
-
-                    <h1 className="mt-6 text-4xl leading-tight font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+                    <h1 className="text-4xl leading-tight font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
                         Student Financial
                         <span className="block bg-gradient-to-r from-sky-400 via-blue-400 to-cyan-300 bg-clip-text text-transparent">
                             Assistance Programs
                         </span>
                     </h1>
 
-                    <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg lg:mx-0">
-                        Discover six scholarship opportunities from the Commission on Higher Education designed to support deserving Filipino
-                        students across diverse fields of study.
+                    <p className="mx-auto mt-6 max-w-2xl text-xs leading-relaxed text-slate-300 sm:text-sm lg:mx-0">
+                        In accordance with Republic Act No. 7722, Article XIV of the 1987 Philippine Constitution, and CHED en banc Resolution No.
+                        498-2025 dated 30 June 2025, the Commission on Higher Education (CHED) implements Student Financial Assistance Programs
+                        (StuFAPs) to provide scholarships, grants, and other forms of educational assistance to qualified and deserving Filipino
+                        students. These programs aim to promote equitable access to quality higher education by supporting financially challenged
+                        yet academically capable students through tuition assistance, stipends, and other educational benefits, thereby helping
+                        them complete their studies and contribute to national development.
                     </p>
 
                     <div className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
@@ -123,6 +119,44 @@ export function Hero() {
                         );
                     })}
                 </div>
+            </div>
+
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 overflow-hidden">
+                <svg
+                    viewBox="0 0 1440 120"
+                    preserveAspectRatio="none"
+                    className="block h-12 w-full sm:h-16 lg:h-20"
+                    aria-hidden="true"
+                >
+                    <g>
+                        <path
+                            d="M0,40 Q360,80 720,40 Q1080,0 1440,40 Q1800,80 2160,40 Q2520,0 2880,40 L2880,120 L0,120 Z"
+                            fill="rgba(255,255,255,0.08)"
+                        />
+                        <animateTransform
+                            attributeName="transform"
+                            type="translate"
+                            from="0 0"
+                            to="-1440 0"
+                            dur="20s"
+                            repeatCount="indefinite"
+                        />
+                    </g>
+                    <g>
+                        <path
+                            d="M0,60 Q360,0 720,60 Q1080,120 1440,60 Q1800,0 2160,60 Q2520,120 2880,60 L2880,120 L0,120 Z"
+                            fill="white"
+                        />
+                        <animateTransform
+                            attributeName="transform"
+                            type="translate"
+                            from="0 0"
+                            to="-1440 0"
+                            dur="14s"
+                            repeatCount="indefinite"
+                        />
+                    </g>
+                </svg>
             </div>
 
             <style>{`
