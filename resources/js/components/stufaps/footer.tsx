@@ -9,10 +9,7 @@ const USEFUL_LINKS = [
 ];
 
 const RESOURCES = [
-    { label: 'Application Guide', target: 'requirements' },
-    { label: 'FAQ', target: 'contact' },
-    { label: 'Privacy Policy', target: 'contact' },
-    { label: 'Terms of Service', target: 'contact' },
+    { label: 'FAQ', target: 'requirements' },
 ];
 
 const SOCIALS = [
