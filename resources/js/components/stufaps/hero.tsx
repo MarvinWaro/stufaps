@@ -1,12 +1,29 @@
 import { programs } from '@/data/programs';
 import { cn } from '@/lib/utils';
-import { ArrowRight, Image as ImageIcon } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { useEffect, useRef } from 'react';
 
 export function Hero() {
+    const sectionRef = useRef<HTMLElement>(null);
     const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+
+    useEffect(() => {
+        const section = sectionRef.current;
+        if (!section) return;
+
+        const onMouseMove = (e: MouseEvent) => {
+            const rect = section.getBoundingClientRect();
+            section.style.setProperty('--mx', `${e.clientX - rect.left}px`);
+            section.style.setProperty('--my', `${e.clientY - rect.top}px`);
+        };
+
+        section.addEventListener('mousemove', onMouseMove);
+        return () => section.removeEventListener('mousemove', onMouseMove);
+    }, []);
 
     return (
         <section
+            ref={sectionRef}
             id="home"
             className="relative isolate overflow-hidden bg-gradient-to-br from-slate-900 via-slate-900 to-blue-950 pt-32 pb-24 text-white sm:pt-40 sm:pb-32"
         >
@@ -18,6 +35,7 @@ export function Hero() {
                 />
             </div>
             <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.05)_1px,transparent_1px)] [background-size:32px_32px]" />
+            <div aria-hidden="true" className="hero-bright-dots pointer-events-none absolute inset-0 -z-10 hidden lg:block" />
 
             <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
                 <div className="animate-[fadeInUp_0.8s_ease-out] text-center lg:text-left">
@@ -59,16 +77,21 @@ export function Hero() {
 
                 </div>
 
-                <div className="relative mx-auto w-[80%] animate-[fadeInUp_1s_ease-out_0.3s_both]">
-                    <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/10 to-white/5 p-2 shadow-2xl backdrop-blur-sm">
-                        <div className="flex aspect-[4/3] items-center justify-center rounded-xl bg-gradient-to-br from-sky-500/20 to-blue-700/30">
-                            <div className="flex flex-col items-center gap-3 text-white/60">
-                                <ImageIcon className="h-16 w-16" strokeWidth={1.25} />
-                                <span className="text-sm font-medium tracking-wider uppercase">Hero Image Placeholder</span>
+                <div className="relative mx-auto hidden aspect-[4/3] w-[80%] animate-[fadeInUp_1s_ease-out_0.3s_both] lg:block">
+                    <div className="pointer-events-none absolute inset-0 grid place-items-center">
+                        <div className="relative grid place-items-center">
+                            <div className="absolute h-56 w-56 rounded-full bg-sky-500/15 blur-3xl" />
+                            <div className="absolute h-36 w-36 rounded-full bg-blue-500/20 blur-2xl" />
+                            <div className="relative text-center">
+                                <div className="bg-gradient-to-br from-sky-300 via-blue-400 to-cyan-300 bg-clip-text text-7xl font-black leading-none text-transparent">
+                                    6
+                                </div>
+                                <div className="mt-2 text-[10px] font-bold tracking-[0.4em] text-white/60 uppercase">
+                                    Programs
+                                </div>
                             </div>
                         </div>
                     </div>
-
                     {programs.map((p, i) => {
                         const PIcon = p.icon;
                         const positions = [
@@ -110,6 +133,12 @@ export function Hero() {
                 @keyframes float {
                     0%, 100% { transform: translateY(0); }
                     50% { transform: translateY(-14px); }
+                }
+                .hero-bright-dots {
+                    background-image: radial-gradient(circle, rgba(255,255,255,0.45) 1px, transparent 1px);
+                    background-size: 32px 32px;
+                    -webkit-mask-image: radial-gradient(circle 220px at var(--mx, 50%) var(--my, 50%), black 0%, transparent 75%);
+                    mask-image: radial-gradient(circle 220px at var(--mx, 50%) var(--my, 50%), black 0%, transparent 75%);
                 }
             `}</style>
         </section>
