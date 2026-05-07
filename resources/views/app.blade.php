@@ -6,7 +6,7 @@
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
-        <link rel="icon" type="image/png" href="/assets/img/ched-logo.png">
+        <link rel="icon" type="image/png" href="https://srms-bucket.sgp1.cdn.digitaloceanspaces.com/srms-images/ched.png">
 
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />

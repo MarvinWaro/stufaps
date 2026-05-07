@@ -3,6 +3,7 @@ import { Contact } from '@/components/stufaps/contact';
 import { Footer } from '@/components/stufaps/footer';
 import { GeneralRequirements } from '@/components/stufaps/general-requirements';
 import { Hero } from '@/components/stufaps/hero';
+import { MobileCta } from '@/components/stufaps/mobile-cta';
 import { Navbar } from '@/components/stufaps/navbar';
 import { ProgramSection } from '@/components/stufaps/program-section';
 import { programs as fallbackPrograms, type Program } from '@/data/programs';
@@ -32,7 +33,7 @@ export default function Stufaps() {
                 />
             </Head>
 
-            <div className="min-h-screen bg-white font-sans text-slate-900 antialiased [scroll-behavior:smooth]">
+            <div className="min-h-screen bg-white pb-[76px] font-sans text-slate-900 antialiased [scroll-behavior:smooth] lg:pb-0">
                 <Navbar />
                 <main>
                     <Hero />
@@ -44,6 +45,7 @@ export default function Stufaps() {
                     <Contact />
                 </main>
                 <Footer />
+                <MobileCta />
             </div>
         </>
     );

@@ -9,7 +9,7 @@ const USEFUL_LINKS = [
 ];
 
 const RESOURCES = [
-    { label: 'FAQ', target: 'requirements' },
+    { label: 'FAQ', target: 'faq' },
 ];
 
 const SOCIALS = [
@@ -28,13 +28,13 @@ export function Footer() {
                 <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
                     <div className="lg:col-span-1">
                         <div className="flex items-center gap-2.5 font-bold">
-                            <img src="/assets/img/ched-logo.png" alt="CHED" className="h-10 w-10 object-contain" />
-                            <img src="/assets/img/bagong-pilipinas.png" alt="Bagong Pilipinas" className="h-10 w-10 object-contain" />
+                            <img src="https://srms-bucket.sgp1.cdn.digitaloceanspaces.com/srms-images/ched.png" alt="CHED" className="h-10 w-10 object-contain" />
+                            <img src="https://srms-bucket.sgp1.cdn.digitaloceanspaces.com/srms-images/bp-logo.png" alt="Bagong Pilipinas" className="h-10 w-10 object-contain" />
                             <span className="text-lg text-white">STUFAPS</span>
                         </div>
                         <p className="mt-4 text-sm leading-relaxed text-slate-400">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Empowering Filipino students through accessible scholarships
-                            and grants.
+                            Empowering Filipino students through accessible scholarships and grants offered by the Commission on Higher Education
+                            Regional Office XII.
                         </p>
 
                         <ul className="mt-6 space-y-2.5 text-sm">
@@ -140,7 +140,7 @@ export function Footer() {
             <button
                 onClick={scrollTop}
                 aria-label="Back to top"
-                className="fixed right-6 bottom-6 z-40 grid h-11 w-11 place-items-center rounded-full bg-gradient-to-br from-sky-500 to-blue-600 text-white shadow-lg shadow-sky-500/30 transition-all hover:-translate-y-1 hover:shadow-xl"
+                className="fixed right-4 bottom-24 z-40 grid h-11 w-11 place-items-center rounded-full bg-gradient-to-br from-sky-500 to-blue-600 text-white shadow-lg shadow-sky-500/30 transition-all hover:-translate-y-1 hover:shadow-xl lg:right-6 lg:bottom-6"
             >
                 <ArrowUp className="h-5 w-5" />
             </button>

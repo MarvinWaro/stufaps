@@ -6,6 +6,7 @@ import { programs } from '@/data/programs';
 const NAV_LINKS = [
     { id: 'home', label: 'Home' },
     ...programs.map((p) => ({ id: p.id, label: p.acronym })),
+    { id: 'faq', label: 'FAQ' },
     { id: 'contact', label: 'Contact' },
 ];
 
@@ -53,8 +54,8 @@ export function Navbar() {
         >
             <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
                 <button onClick={() => handleClick('home')} className="flex items-center gap-2.5 font-bold tracking-tight">
-                    <img src="/assets/img/ched-logo.png" alt="CHED" className="h-10 w-10 object-contain" />
-                    <img src="/assets/img/bagong-pilipinas.png" alt="Bagong Pilipinas" className="h-10 w-10 object-contain" />
+                    <img src="https://srms-bucket.sgp1.cdn.digitaloceanspaces.com/srms-images/ched.png" alt="CHED" className="h-10 w-10 object-contain" />
+                    <img src="https://srms-bucket.sgp1.cdn.digitaloceanspaces.com/srms-images/bp-logo.png" alt="Bagong Pilipinas" className="h-10 w-10 object-contain" />
                     <span className={cn('text-lg', scrolled ? 'text-slate-900' : 'text-white')}>STUFAPS</span>
                 </button>
 
