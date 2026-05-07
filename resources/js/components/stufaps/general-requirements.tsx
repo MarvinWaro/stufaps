@@ -7,24 +7,28 @@ import { useState } from 'react';
 
 const FAQS = [
     {
-        question: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit?',
-        answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        question: 'What is STUFAPS?',
+        answer: 'STUFAPS (Student Financial Assistance Programs) is a collection of scholarship and grant programs offered by the Commission on Higher Education (CHED) to support Filipino students in pursuing higher education.',
     },
     {
-        question: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco?',
-        answer: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        question: 'Who is eligible to apply?',
+        answer: 'Eligibility varies per program. Generally, applicants must be Filipino citizens enrolled in or accepted to a CHED-recognized higher education institution. Each program has its own specific academic, financial, and documentary requirements — see the program details above.',
     },
     {
-        question: 'Duis aute irure dolor in reprehenderit in voluptate velit?',
-        answer: 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+        question: 'How do I apply for a STUFAPS scholarship?',
+        answer: 'Applications are typically submitted through your school\'s Office of Student Affairs and Services (OSAS) or directly to CHED Regional Office XII. Prepare all documentary requirements listed under your chosen program before applying.',
     },
     {
-        question: 'Nemo enim ipsam voluptatem quia voluptas sit aspernatur?',
-        answer: 'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt neque porro quisquam est.',
+        question: 'Can I apply for more than one program at the same time?',
+        answer: 'No. Applicants who are existing recipients of any nationally government-funded scholarship or grant (including TES and TDP) are not eligible to receive another. Choose the program that best fits your situation.',
     },
     {
-        question: 'Quis autem vel eum iure reprehenderit qui in ea voluptate?',
-        answer: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.',
+        question: 'When are the application deadlines?',
+        answer: 'Deadlines vary by program and academic year. Please contact CHED Regional Office XII or visit our official Facebook page for the most up-to-date announcements.',
+    },
+    {
+        question: 'How much financial assistance will I receive?',
+        answer: 'Award amounts depend on the program, your school type (SUC, LUC, or private HEI), and your year level. See the "Financial Benefits" section of each program for detailed breakdowns.',
     },
 ];
 
@@ -35,7 +39,7 @@ export function GeneralRequirements() {
     const toggle = (i: number) => setOpenIndex(openIndex === i ? null : i);
 
     return (
-        <section id="requirements" className="relative scroll-mt-24 overflow-hidden bg-gradient-to-b from-slate-900 to-blue-950 py-20 text-white sm:py-28">
+        <section id="faq" className="relative scroll-mt-24 overflow-hidden bg-gradient-to-b from-slate-900 to-blue-950 py-20 text-white sm:py-28">
             <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,rgba(56,189,248,0.15),transparent_60%)]" />
 
             <div ref={ref} className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">

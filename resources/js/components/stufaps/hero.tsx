@@ -20,7 +20,7 @@ export function Hero() {
             <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.05)_1px,transparent_1px)] [background-size:32px_32px]" />
 
             <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
-                <div className="animate-[fadeInUp_0.8s_ease-out]">
+                <div className="animate-[fadeInUp_0.8s_ease-out] text-center lg:text-left">
                     <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-xs font-medium tracking-wider uppercase backdrop-blur-sm">
                         <span className="relative flex h-2 w-2">
                             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75" />
@@ -36,12 +36,12 @@ export function Hero() {
                         </span>
                     </h1>
 
-                    <p className="mt-6 max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Discover six scholarship opportunities from the Commission on
-                        Higher Education designed to support deserving Filipino students across diverse fields of study.
+                    <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg lg:mx-0">
+                        Discover six scholarship opportunities from the Commission on Higher Education designed to support deserving Filipino
+                        students across diverse fields of study.
                     </p>
 
-                    <div className="mt-8 flex flex-wrap gap-3">
+                    <div className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
                         <button
                             onClick={() => scrollTo('cmsp')}
                             className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-sky-500/30 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-sky-500/40"

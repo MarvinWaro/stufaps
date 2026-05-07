@@ -1,7 +1,8 @@
 import type { FinancialBenefits, NestedSection, PriorityPrograms, Program } from '@/data/programs';
 import { useReveal } from '@/hooks/use-reveal';
 import { cn } from '@/lib/utils';
-import { ArrowRight, Banknote, BookMarked, CheckCircle2, FileText, Image as ImageIcon, Sparkles, XCircle } from 'lucide-react';
+import { ArrowRight, Banknote, BookMarked, Check, CheckCircle2, FileText, Share2, Sparkles, XCircle } from 'lucide-react';
+import { useState } from 'react';
 
 type Props = {
     program: Program;
@@ -48,25 +49,19 @@ export function ProgramSection({ program, index }: Props) {
 
                             <p className="text-sm leading-relaxed text-slate-600 sm:text-base">{program.description}</p>
 
-                            <div className="aspect-[4/3] overflow-hidden rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 ring-1 ring-slate-200">
-                                <div className="flex h-full w-full items-center justify-center text-slate-400">
-                                    <div className="flex flex-col items-center gap-2">
-                                        <ImageIcon className="h-12 w-12" strokeWidth={1.25} />
-                                        <span className="text-xs tracking-wider uppercase">Program Image</span>
-                                    </div>
-                                </div>
+                            <div className="flex flex-wrap items-center gap-3">
+                                <button
+                                    onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                                    className={cn(
+                                        'group inline-flex items-center gap-2 rounded-full bg-gradient-to-r px-6 py-3 text-sm font-semibold text-white shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg',
+                                        program.accent,
+                                    )}
+                                >
+                                    Apply for {program.acronym}
+                                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                                </button>
+                                <ShareButton program={program} />
                             </div>
-
-                            <button
-                                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                                className={cn(
-                                    'group inline-flex items-center gap-2 rounded-full bg-gradient-to-r px-6 py-3 text-sm font-semibold text-white shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg',
-                                    program.accent,
-                                )}
-                            >
-                                Apply for {program.acronym}
-                                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                            </button>
                         </div>
                     </div>
 
@@ -242,7 +237,8 @@ function FinancialBenefitsCard({ benefits }: { benefits: FinancialBenefits }) {
                                 ))}
                             </ul>
                         )}
-                        <div className="overflow-x-auto rounded-xl border border-slate-200">
+                        {/* Desktop table */}
+                        <div className="hidden overflow-x-auto rounded-xl border border-slate-200 md:block">
                             <table className="min-w-full text-sm">
                                 <thead>
                                     <tr className="bg-slate-50 text-left">
@@ -268,6 +264,46 @@ function FinancialBenefitsCard({ benefits }: { benefits: FinancialBenefits }) {
                                 </tbody>
                             </table>
                         </div>
+
+                        {/* Mobile cards */}
+                        <div className="space-y-3 md:hidden">
+                            {dg.programGroups.map((pg) => (
+                                <div key={pg.program} className="overflow-hidden rounded-xl border border-slate-200">
+                                    <div className="border-b border-slate-200 bg-slate-50 px-4 py-2.5">
+                                        <p className="text-xs font-bold tracking-wider text-slate-700 uppercase">{pg.program}</p>
+                                    </div>
+                                    <div className="divide-y divide-slate-100">
+                                        {pg.rows.map((row, rowIndex) => (
+                                            <div
+                                                key={`${pg.program}-mobile-${rowIndex}`}
+                                                className={cn('px-4 py-3', row.isTotal && 'bg-sky-50')}
+                                            >
+                                                {row.isTotal ? (
+                                                    <div className="flex items-baseline justify-between gap-3">
+                                                        <p className="text-xs font-bold tracking-wider text-slate-700 uppercase">{row.particulars || 'Total'}</p>
+                                                        <p className="text-base font-extrabold text-sky-600">{row.perAY}</p>
+                                                    </div>
+                                                ) : (
+                                                    <>
+                                                        <p className="text-sm font-semibold text-slate-900">{row.particulars}</p>
+                                                        <dl className="mt-2 grid grid-cols-2 gap-2 text-xs">
+                                                            <div>
+                                                                <dt className="text-slate-500">Per Semester</dt>
+                                                                <dd className="mt-0.5 font-semibold text-slate-700">{row.perSemester}</dd>
+                                                            </div>
+                                                            <div className="text-right">
+                                                                <dt className="text-slate-500">Per AY</dt>
+                                                                <dd className="mt-0.5 font-semibold text-slate-700">{row.perAY}</dd>
+                                                            </div>
+                                                        </dl>
+                                                    </>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 ))}
                 {/* Simple table (Scholar Type × columns…) */}
@@ -285,7 +321,8 @@ function FinancialBenefitsCard({ benefits }: { benefits: FinancialBenefits }) {
                                     ))}
                                 </ul>
                             )}
-                            <div className="overflow-x-auto rounded-xl border border-slate-200">
+                            {/* Desktop table */}
+                            <div className="hidden overflow-x-auto rounded-xl border border-slate-200 md:block">
                                 <table className="min-w-full text-sm">
                                     {(group.tableTitle || hasVisibleHeaders) && (
                                         <thead>
@@ -334,6 +371,51 @@ function FinancialBenefitsCard({ benefits }: { benefits: FinancialBenefits }) {
                                     </tbody>
                                 </table>
                             </div>
+
+                            {/* Mobile cards */}
+                            <div className="space-y-3 md:hidden">
+                                {group.tableTitle && (
+                                    <p className="text-xs font-bold tracking-wider text-slate-700 uppercase">{group.tableTitle}</p>
+                                )}
+                                {group.rows.map((row, rowIndex) => {
+                                    const cells = [row.scholarType, row.tsfLabel, row.stipend, row.bookAllowance, row.total];
+                                    if (row.isSpanned) {
+                                        return (
+                                            <div key={`${row.scholarType}-mobile-${rowIndex}`} className="rounded-xl border border-slate-200 bg-white p-4">
+                                                <p className="text-xs font-bold tracking-wider text-slate-700 uppercase">{cells[0]}</p>
+                                                <p className="mt-1.5 text-sm text-slate-600">{cells[1]}</p>
+                                            </div>
+                                        );
+                                    }
+                                    if (row.isTotal) {
+                                        return (
+                                            <div key={`${row.scholarType}-mobile-${rowIndex}`} className="rounded-xl border border-sky-200 bg-sky-50 p-4">
+                                                <div className="flex items-baseline justify-between gap-3">
+                                                    <p className="text-xs font-bold tracking-wider text-slate-700 uppercase">{cells[0] || 'Total'}</p>
+                                                    <p className="text-base font-extrabold text-sky-600">{cells[colCount - 1]}</p>
+                                                </div>
+                                            </div>
+                                        );
+                                    }
+                                    return (
+                                        <div key={`${row.scholarType}-mobile-${rowIndex}`} className="rounded-xl border border-slate-200 bg-white p-4">
+                                            <p className="text-sm font-bold text-slate-900">{cells[0]}</p>
+                                            <dl className="mt-3 space-y-2">
+                                                {cols.slice(1, colCount).map((col, i) => {
+                                                    const value = cells[i + 1];
+                                                    const isLast = i === colCount - 2;
+                                                    return (
+                                                        <div key={i} className="flex items-baseline justify-between gap-3 border-t border-slate-100 pt-2 first:border-t-0 first:pt-0">
+                                                            <dt className="text-xs text-slate-500">{col}</dt>
+                                                            <dd className={cn('text-sm font-semibold', isLast ? 'text-sky-600' : 'text-slate-700')}>{value}</dd>
+                                                        </div>
+                                                    );
+                                                })}
+                                            </dl>
+                                        </div>
+                                    );
+                                })}
+                            </div>
                         </div>
                     );
                 })}
@@ -360,9 +442,9 @@ function PriorityProgramsCard({ programs }: { programs: PriorityPrograms }) {
                     <p className="text-sm leading-relaxed text-slate-600">{programs.note}</p>
                 )}
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                    {programs.national.map((cat) => (
+                    {programs.national.map((cat, idx) => (
                         <div
-                            key={cat.category || 'default'}
+                            key={cat.category || `category-${idx}`}
                             className={cn(
                                 'rounded-xl border border-slate-100 bg-slate-50 p-4',
                                 programs.itemColumns && programs.itemColumns > 1 && 'sm:col-span-2',
@@ -410,5 +492,55 @@ function PriorityProgramsCard({ programs }: { programs: PriorityPrograms }) {
                 )}
             </div>
         </div>
+    );
+}
+
+function ShareButton({ program }: { program: Program }) {
+    const [copied, setCopied] = useState(false);
+
+    const handleShare = async () => {
+        const url = `${window.location.origin}/#${program.id}`;
+        const shareData = {
+            title: `${program.acronym} — STUFAPS`,
+            text: `Check out the ${program.name} (${program.acronym}) scholarship program from CHED.`,
+            url,
+        };
+
+        if (typeof navigator.share === 'function') {
+            try {
+                await navigator.share(shareData);
+                return;
+            } catch {
+                // User cancelled the share sheet — fall through to clipboard.
+            }
+        }
+
+        try {
+            await navigator.clipboard.writeText(url);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        } catch {
+            // Clipboard blocked; nothing else we can do gracefully.
+        }
+    };
+
+    return (
+        <button
+            onClick={handleShare}
+            aria-label={`Share ${program.acronym} program`}
+            className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 shadow-sm transition-all hover:-translate-y-0.5 hover:border-slate-400 hover:shadow-md"
+        >
+            {copied ? (
+                <>
+                    <Check className="h-4 w-4 text-emerald-600" />
+                    Link copied!
+                </>
+            ) : (
+                <>
+                    <Share2 className="h-4 w-4" />
+                    Share
+                </>
+            )}
+        </button>
     );
 }

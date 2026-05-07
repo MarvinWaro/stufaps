@@ -1,3 +1,4 @@
+import { MessengerIcon } from '@/components/icons/messenger';
 import { useReveal } from '@/hooks/use-reveal';
 import { cn } from '@/lib/utils';
 import { Facebook, Mail, MapPin, Phone, Smartphone } from 'lucide-react';
@@ -6,6 +7,7 @@ const CONTACT_INFO = [
     { icon: Smartphone, label: 'Mobile', value: '0909 711 1264', href: 'tel:09097111264' },
     { icon: Phone, label: 'Telephone', value: '(083) 228 7570', href: 'tel:0832287570' },
     { icon: Mail, label: 'Email', value: 'stufaps12@ched.gov.ph', href: 'mailto:stufaps12@ched.gov.ph' },
+    { icon: MessengerIcon, label: 'Messenger', value: 'Chat on Messenger', href: 'https://m.me/stufaps.regionxii' },
     { icon: Facebook, label: 'Facebook', value: 'Stufaps Region XII', href: 'https://www.facebook.com/stufaps.regionxii' },
 ];
 
