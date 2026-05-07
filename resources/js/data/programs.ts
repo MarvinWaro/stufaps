@@ -69,6 +69,7 @@ export type PriorityPrograms = {
     title?: string;
     subtitle?: string;
     note?: string;
+    itemColumns?: number;
     national: NationalCategory[];
     regional?: string[];
 };
@@ -629,6 +630,7 @@ export const programs: Program[] = [
         },
         priorityPrograms: {
             title: 'Priority Programs',
+            itemColumns: 2,
             national: [
                 {
                     category: '',
@@ -770,23 +772,161 @@ export const programs: Program[] = [
         name: 'Scholarship Program for Coconut Farmers and their Families',
         tagline: 'Empowering coconut farming communities through education',
         description:
-            'Lorem ipsum dolor sit amet. The scholarship program aims to raise social equity of coconut farmers and ultimately alleviate poverty through the provision of quality education to coconut farmers and/or their dependents. The scholarship program is ultimately expected to improve agricultural productivity and modernization in the coconut industry by raising the knowledge of coconut farmers and/or their dependents on scientific advances in agricultural technology and other related fields, motivating the younger generation to be engaged in the agriculture sector.',
+            'The scholarship program aims to raise social equity of coconut farmers and ultimately alleviate poverty through the provision of quality education to coconut farmers and/or their dependents. The scholarship program is ultimately expected to improve agricultural productivity and modernization in the coconut industry by raising the knowledge of coconut farmers and/or their dependents on scientific advances in agricultural technology and other related fields and motivate the younger generation to be engaged in the agriculture sector.',
         eligibility: [
             'Filipino citizen',
-            'Must be a registered coconut farmer or a dependent of one',
-            'Combined parental annual gross income should not exceed PhP400,000',
-            'Must be enrolled or about to enroll in a CHED-recognized HEI in any approved degree program related to agriculture, fisheries, food technology, or coconut industry development',
+            'Graduating high school student/high school graduate with a general weighted average grade (GWA) of 80% or its equivalent; or college student with earned academic units relevant to the degree programs identified by PCA with a GWA of 80% the previous semester or its equivalent',
+            'Pass the entry level requirements of identified State Universities and Colleges (SUCs)',
+            'Not be a recipient of any government-funded financial assistance program',
+            'Duly registered coconut farmer in the NCFRS or his/her dependent',
+            'Must have a combined annual gross income of parents not exceeding ₱300,000.00',
         ],
-        documentaryRequirements: [
-            'PSA Birth Certificate',
-            'Form 138 / Latest Transcript of Records',
-            'Certificate of Good Moral Character',
-            'Certified true copy of latest grades',
-            'PCA Certification of registered coconut farmer (parent/guardian/applicant)',
-            'Latest ITR or Certificate of Tax Exemption from BIR',
-            'Notice of Acceptance from the HEI',
-            'Two (2) pieces of 2x2 ID photos',
+        documentaryRequirements: [],
+        documentaryNestedSection: {
+            items: [
+                { text: '1. Birth Certificate issued by the Local Civil Registry or Philippine Statistics Authority (PSA)' },
+                {
+                    text: '2. Academic:',
+                    subItems: [
+                        '2.1. For senior high school students — duly certified copy of the grades for Grade 11 and first semester for Grade 12;',
+                        '2.2. For senior high school graduates — Form 138; and',
+                        '2.3. For applicants with earned units or currently enrolled in college — duly Certified Copy of Grades for the latest semester/term attended.',
+                    ],
+                },
+                { text: '3. PCA Certification, issued by PCA Regional Office (PCA-RO) to NCFRS registered coconut farmers/farmworkers upon the endorsement of the PCA Provincial Office and/or Local Coconut Industry Development Councils (LCIDCs), small coconut farmers organizations, federations, and cooperatives. Note: Only one family member shall be allowed to apply for the scholarship;' },
+                { text: '4. Certificate of Good Moral Character from the last school attended;' },
+                {
+                    text: '5. Proof of income — any of the following:',
+                    subItems: [
+                        '5.1. Latest Income Tax Return (ITR) of applicant and/or spouse/parents/guardians if employed;',
+                        '5.2. Certificate of Tax Exemption from the Bureau of Internal Revenue (BIR);',
+                        '5.3. Certificate of No Income from BIR;',
+                        '5.4. Certificate of Indigency from their Barangay; or',
+                        '5.5. Certificate/Case Study from Department of Social Welfare and Development (DSWD)',
+                    ],
+                },
+                { text: '6. Notice of admission from the HEI with collegiate degree offerings;' },
+                { text: '7. Proof that the student applicant belonged to special group/s (if applicable); and' },
+                { text: '8. Original Barangay Certification that parents/guardians and siblings had never attended college/university (if applicable).' },
+            ],
+        },
+        otherRequirementsNote:
+            'Proof that the student applicant belonged to special group/s (if applicable); and Original Barangay Certification that parents/guardians and siblings had never attended college/university (if applicable).',
+        otherRequirements: [
+            "Applicant's PWD ID issued by C/MSWDO or Certification of Disability issued by the Persons with Disability Affairs Office (PDAO);",
+            "Solo Parent ID of applicant or his/her parent issued by C/MSWDO;",
+            "Applicant's Senior Citizen ID issued by C/MSWDO;",
+            'Certification issued by Department of Human Settlements and Urban Development (DHSUD) or C/MSWDO to Underprivileged and Homeless family;',
+            'Social Case Study Report issued by C/MSWDO covered under Magna Carta for the Poor and/or First-Generation Students;',
+            'Certification issued by the National Commission on Indigenous Peoples (NCIP) to the Indigenous People.',
+            'Notarized Certificate of Guardianship, issued by the legal guardian of the student applicant, if applicable.',
         ],
+        financialBenefits: {
+            groups: [
+                {
+                    tableTitle: '12.1. Regular Allowances',
+                    columns: ['Type', 'Total Cost Per Semestral', 'Total Cost Per Academic Year'],
+                    rows: [
+                        {
+                            scholarType: 'a. Stipend (which includes food, educational tours, transportation, projects, medical insurance, internet use, communication)',
+                            tsfLabel: '35,000.00',
+                            stipend: '70,000.00',
+                            bookAllowance: '',
+                            total: '',
+                        },
+                        {
+                            scholarType: 'b. Book allowance and other learning materials',
+                            tsfLabel: '5,000.00',
+                            stipend: '10,000.00',
+                            bookAllowance: '',
+                            total: '',
+                        },
+                        { scholarType: 'Total', tsfLabel: '', stipend: '₱80,000.00', bookAllowance: '', total: '', isTotal: true },
+                    ],
+                },
+                {
+                    tableTitle: '12.2. Other Allowances',
+                    columns: ['Type', 'Total Cost'],
+                    rows: [
+                        {
+                            scholarType: 'a. Thesis and/or OJT Allowance',
+                            tsfLabel: '75,000.00',
+                            stipend: '',
+                            bookAllowance: '',
+                            total: '',
+                        },
+                        {
+                            scholarType: 'b. One-time attendance in local conference/fora (should be related to the undergraduate program and to be given during the junior or senior standing. The activity should not be on the same HEI where the beneficiary is enrolled)',
+                            tsfLabel: '10,000.00',
+                            stipend: '',
+                            bookAllowance: '',
+                            total: '',
+                        },
+                        {
+                            scholarType: 'c. One-time financial assistance for the purchase of a laptop (to be given during the first year of scholarship grant)',
+                            tsfLabel: '30,000.00',
+                            stipend: '',
+                            bookAllowance: '',
+                            total: '',
+                        },
+                        { scholarType: 'Total', tsfLabel: '₱115,000.00', stipend: '', bookAllowance: '', total: '', isTotal: true },
+                    ],
+                },
+            ],
+        },
+        priorityPrograms: {
+            title: 'Priority Programs',
+            national: [
+                {
+                    category: '',
+                    items: [
+                        'Bachelor of Science in Agriculture',
+                        'Bachelor of Science in Agricultural Biotechnology',
+                        'Bachelor of Science in Agricultural and Biosystems Engineering',
+                        'Bachelor of Science in Agribusiness / Agribusiness Management',
+                        'Bachelor of Science in Agricultural Economics',
+                        'Bachelor of Science in Agricultural Chemistry',
+                        'Bachelor of Science in Agricultural Entrepreneurship',
+                        'Bachelor of Science in Agricultural Engineering',
+                        'Bachelor of Science in Agricultural Extension Education',
+                        'Bachelor of Science in Agricultural Technology',
+                        'Bachelor of Science in Agri-fisheries',
+                        'Bachelor of Science in Agroforestry',
+                        'Bachelor of Science in Architectural Engineering',
+                        'Bachelor of Science in Biology',
+                        'Bachelor of Science in Biochemistry',
+                        'Bachelor of Science in Business Administration',
+                        'Bachelor of Science in Dairy Technology',
+                        'Bachelor of Science in Development Management',
+                        'Bachelor of Science in Development Communication',
+                    ],
+                },
+                {
+                    category: '',
+                    items: [
+                        'Bachelor of Science in Economics / Bachelor of Arts in Economics',
+                        'Bachelor of Science in Environmental Engineering',
+                        'Bachelor of Science in Environmental Science',
+                        'Bachelor of Science in Fisheries',
+                        'Bachelor of Science in Food Engineering',
+                        'Bachelor of Science in Food Science and Technology',
+                        'Bachelor of Science in Forestry',
+                        'Bachelor of Science in Manufacturing Engineering / Manufacturing Technology Engineering',
+                        'Bachelor of Science in Marine Biology',
+                        'Bachelor of Science in Microbiology',
+                        'Bachelor of Science in Political Science',
+                        'Bachelor of Science in Physics',
+                        'Bachelor of Science in Psychology',
+                        'Bachelor of Science in Public Administration',
+                        'Bachelor of Science in Rural Development',
+                        'Bachelor of Science in Social Work',
+                        'Bachelor of Science in Statistics',
+                        'Bachelor of Science in Tourism',
+                        'Bachelor of Science in Tourism Management / Agri Eco-Tourism Management',
+                    ],
+                },
+            ],
+        },
         icon: TreePalm,
         accent: 'from-lime-500 to-green-600',
     },

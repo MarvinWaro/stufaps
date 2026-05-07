@@ -361,16 +361,37 @@ function PriorityProgramsCard({ programs }: { programs: PriorityPrograms }) {
                 )}
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                     {programs.national.map((cat) => (
-                        <div key={cat.category || 'default'} className="rounded-xl border border-slate-100 bg-slate-50 p-4">
+                        <div
+                            key={cat.category || 'default'}
+                            className={cn(
+                                'rounded-xl border border-slate-100 bg-slate-50 p-4',
+                                programs.itemColumns && programs.itemColumns > 1 && 'sm:col-span-2',
+                            )}
+                        >
                             {cat.category && <p className="mb-2 text-xs font-bold text-violet-700">{cat.category}</p>}
-                            <ul className="space-y-1">
-                                {cat.items.map((item) => (
-                                    <li key={item} className="flex gap-2 text-xs leading-relaxed text-slate-600">
-                                        <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-violet-400" />
-                                        {item}
-                                    </li>
-                                ))}
-                            </ul>
+                            {programs.itemColumns === 2 ? (
+                                <div className="flex gap-6">
+                                    {[cat.items.slice(0, Math.ceil(cat.items.length / 2)), cat.items.slice(Math.ceil(cat.items.length / 2))].map((half, hi) => (
+                                        <ul key={hi} className="flex-1 space-y-1">
+                                            {half.map((item) => (
+                                                <li key={item} className="flex min-w-0 gap-2 text-xs leading-relaxed text-slate-600">
+                                                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-violet-400" />
+                                                    <span className="min-w-0">{item}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    ))}
+                                </div>
+                            ) : (
+                                <ul className="space-y-1">
+                                    {cat.items.map((item) => (
+                                        <li key={item} className="flex gap-2 text-xs leading-relaxed text-slate-600">
+                                            <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-violet-400" />
+                                            {item}
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
                         </div>
                     ))}
                 </div>
