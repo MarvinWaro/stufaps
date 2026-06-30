@@ -1,5 +1,7 @@
+import { cn } from '@/lib/utils';
 import { programs } from '@/data/programs';
 import { ArrowUp, Facebook, Mail, MapPin, Phone, Smartphone } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 const USEFUL_LINKS = [
     { label: 'Home', target: 'home' },
@@ -17,8 +19,16 @@ const SOCIALS = [
 ];
 
 export function Footer() {
+    const [showTop, setShowTop] = useState(false);
     const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    useEffect(() => {
+        const onScroll = () => setShowTop(window.scrollY > 800);
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
+    }, []);
 
     return (
         <footer className="relative overflow-hidden bg-slate-950 text-slate-300">
@@ -140,7 +150,12 @@ export function Footer() {
             <button
                 onClick={scrollTop}
                 aria-label="Back to top"
-                className="fixed right-4 bottom-24 z-40 grid h-11 w-11 place-items-center rounded-full bg-gradient-to-br from-sky-500 to-blue-600 text-white shadow-lg shadow-sky-500/30 transition-all hover:-translate-y-1 hover:shadow-xl lg:right-6 lg:bottom-6"
+                aria-hidden={!showTop}
+                tabIndex={showTop ? 0 : -1}
+                className={cn(
+                    'fixed right-4 bottom-24 z-40 grid h-11 w-11 place-items-center rounded-full bg-gradient-to-br from-sky-500 to-blue-600 text-white shadow-lg shadow-sky-500/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl lg:right-6 lg:bottom-6',
+                    showTop ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0',
+                )}
             >
                 <ArrowUp className="h-5 w-5" />
             </button>

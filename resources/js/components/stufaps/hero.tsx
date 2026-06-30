@@ -80,7 +80,7 @@ export function Hero() {
                             <div className="absolute h-36 w-36 rounded-full bg-blue-500/20 blur-2xl" />
                             <div className="relative text-center">
                                 <div className="bg-gradient-to-br from-sky-300 via-blue-400 to-cyan-300 bg-clip-text text-7xl font-black leading-none text-transparent">
-                                    6
+                                    8
                                 </div>
                                 <div className="mt-2 text-[10px] font-bold tracking-[0.4em] text-white/60 uppercase">
                                     Programs
@@ -91,14 +91,16 @@ export function Hero() {
                     {programs.map((p, i) => {
                         const PIcon = p.icon;
                         const positions = [
-                            'left-[18%] -top-5',
-                            '-right-4 top-3',
-                            '-left-10 top-[30%]',
+                            'left-[12%] -top-6',
+                            'right-[8%] -top-4',
+                            '-left-12 top-[24%]',
+                            '-right-10 top-[24%]',
+                            '-left-10 top-[58%]',
                             '-right-8 top-[58%]',
-                            '-left-4 bottom-[14%]',
-                            'right-[12%] -bottom-5',
+                            'left-[10%] -bottom-6',
+                            'right-[6%] -bottom-6',
                         ];
-                        const delays = ['0s', '1.1s', '0.5s', '1.7s', '0.9s', '0.3s'];
+                        const delays = ['0s', '1.1s', '0.5s', '1.7s', '0.9s', '0.3s', '1.4s', '0.7s'];
                         return (
                             <div key={p.id} className={cn('absolute hidden lg:block', positions[i])}>
                                 <div
