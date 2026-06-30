@@ -7,7 +7,7 @@
  */
 
 import type { LucideIcon } from 'lucide-react';
-import { GraduationCap, Stethoscope, Sprout, TreePalm, Tractor, Star } from 'lucide-react';
+import { GraduationCap, Stethoscope, Sprout, TreePalm, Tractor, Star, HeartPulse, Users } from 'lucide-react';
 
 export type FinancialBenefitRow = {
     scholarType: string;
@@ -86,11 +86,13 @@ export type Program = {
     ineligibility?: string[];
     ineligibilityNote?: string;
     documentaryNote?: string;
+    documentaryBoldSubLabel?: boolean;
     documentaryRequirements: string[];
     documentaryNestedSection?: NestedSection;
     documentaryNestedSections?: NestedSection[];
     otherRequirements?: string[];
     otherRequirementsNote?: string;
+    otherRequirementsBoldLabel?: boolean;
     benefits?: string[];
     financialBenefits?: FinancialBenefits;
     priorityPrograms?: PriorityPrograms;
@@ -929,6 +931,140 @@ export const programs: Program[] = [
         },
         icon: TreePalm,
         accent: 'from-lime-500 to-green-600',
+    },
+    {
+        id: 'ahead',
+        acronym: 'AHEAD',
+        name: 'Allied Health Experiential Assistance for Deserving Students Grant',
+        tagline: 'One-time RLE financial assistance for allied health students',
+        description:
+            'The AHEAD Grant is offered to qualified students to provide a one-time fixed financial assistance of Twenty-Five Thousand Pesos (PhP 25,000.00) to help cover eligible expenses incurred in completing their Related Learning Experience (RLE) requirements and activities.',
+        eligibility: [],
+        eligibilityNestedSection: {
+            items: [
+                { text: '1. Must be a Filipino citizen;' },
+                {
+                    text: '2. Will be enrolled in any of the following CHED-recognized Bachelor\'s degree programs this First Semester, AY 2026-2027, offered by CHED-recognized institutions:',
+                    subItems: [
+                        'a. Bachelor of Science in Nursing',
+                        'b. Bachelor of Science in Medical Technology/Medical Laboratory Science',
+                        'c. Bachelor of Science in Midwifery',
+                        'd. Bachelor of Science in Nutrition and Dietetics',
+                        'e. Bachelor of Science in Occupational Therapy',
+                        'f. Bachelor of Science in Public Health',
+                        'g. Bachelor of Science in Physical Therapy',
+                        'h. Bachelor of Science in Respiratory Therapy',
+                        'i. Bachelor of Science in Radiologic Technology',
+                        'j. Bachelor of Science in Pharmacy k. Bachelor of Science in Speech Language Pathology Doctor of Dental Medicine (DMD)',
+                        'm. Doctor of Optometry (DO)',
+                        'n. Doctor of Veterinary Medicine (DVM)',
+                    ],
+                },
+                { text: '3. Will be enrolled in courses with an RLE component during the applicable semester; and' },
+                { text: '4. Must have a combined annual gross family income of not more than One Million Two Hundred Thousand Pesos (PhP 1,200,000.00), as defined in Section II of this CMO;' },
+            ],
+        },
+        documentaryNote: 'Submit the applicable documents based on your family circumstance:',
+        documentaryRequirements: [],
+        documentaryNestedSections: [
+            {
+                title: 'Single surviving parent (death of one parent)',
+                items: [
+                    { text: 'ITR or Certificate of Tax Exemption of the surviving parent from the BIR' },
+                    { text: 'PSA-issued Death Certificate of the deceased parent' },
+                ],
+            },
+            {
+                title: 'Parent is an Overseas Filipino Worker (OFW)',
+                items: [
+                    { text: 'ITR or Certificate of Tax Exemption of the parent in the Philippines' },
+                    { text: 'Proof of OFW status (Overseas Employment Certificate, OFW ID, or overseas employment contract)' },
+                ],
+            },
+            {
+                title: 'Parent abandoned the family or their whereabouts are unknown',
+                items: [
+                    { text: 'ITR or Certificate of Tax Exemption of the present parent or legal guardian' },
+                    { text: 'Sworn Affidavit attesting to abandonment or absence' },
+                    { text: 'Barangay Certification confirming the family circumstance' },
+                ],
+            },
+            {
+                title: 'Applicant under legal guardianship',
+                items: [
+                    { text: 'ITR or Certificate of Tax Exemption of the legal guardian' },
+                    { text: 'Court Order or DSWD Certification of Legal Guardianship' },
+                    { text: 'PSA Death Certificates or proof of parental incapacity, as applicable' },
+                ],
+            },
+        ],
+        otherRequirementsNote: 'Submit the applicable document if you belong to any of the following special equity groups:',
+        otherRequirementsBoldLabel: true,
+        otherRequirements: [
+            'Persons with Disabilities (PWDs): Valid PWD Identification Card or a medical certificate of disability issued by the Local Government Unit — Persons with Disability Affairs Office (LGU-PDAO) or by a physician accredited by the Department of Health (DOH)',
+            'Solo Parents or their Dependents: Valid Solo Parent Identification Card or certification issued by the Local Government Unit (LGU), Department of Social Welfare and Development (DSWD), or the appropriate Office for Solo Parents',
+            'Senior Citizens: Valid Identification Card issued by the Office of the Senior Citizens Affairs (OSCA)',
+            'Members of Indigenous Peoples Groups: Certificate of tribal membership issued by the recognized tribal authority or certification issued by the National Commission on Indigenous Peoples (NCIP)',
+            'Persons Living in Poverty: Listahanan certification, Pantawid Pamilyang Pilipino Program (4Ps) Identification Card, or certification issued by the DSWD',
+        ],
+        icon: HeartPulse,
+        accent: 'from-violet-500 to-purple-600',
+    },
+    {
+        id: 'spegs',
+        acronym: 'SPSEGs',
+        name: 'The Scholarship Program for Special Equity Groups',
+        tagline: 'Empowering Special Equity Groups through higher education',
+        description:
+            'This program is offered to support students from Special Eligibility Groups (SEGs) by expanding access to higher education through merit-based and empowerment-driven financial assistance, promoting student retention and successful completion of studies, and contributing to social inclusion, poverty reduction, social protection, and active participation in national development through a fair, transparent, and inclusive selection process.',
+        eligibility: [],
+        eligibilityNestedSection: {
+            items: [
+                { text: 'Underprivileged and Homeless Citizens, as defined under RA No. 7279 or the Urban Development and Housing Act, as amended;' },
+                { text: 'Poor, as defined under RA No. 11291 or the Magna Carta of the Poor;' },
+                { text: 'Persons with Disabilities (PWDs), pursuant to RA No. 7277 or the Magna Carta for Persons with Disabilities, as amended;' },
+                { text: "Solo Parents and their Children, as defined under RA No. 8972 or the Solo Parents' Welfare Act, as amended;" },
+                { text: 'Senior Citizens, as defined under RA No. 9994 or the Expanded Senior Citizens Act; and' },
+                { text: "Indigenous Cultural Communities/Indigenous Peoples (ICCs/IPs), as defined under RA No. 8371 or the Indigenous Peoples' Rights Act." },
+                { text: 'Filipino citizen residing in the Philippines;' },
+                { text: 'A duly certified member of any SEG, as enumerated under Article III;' },
+                { text: 'Graduate of a Senior High school (SHS) in the Philippines with a minimum general average of at least 85% or its equivalent;' },
+                { text: 'Must be admitted or enrolled in any CHED-identified priority undergraduate programs with valid GR or COPC, offered by PHEIs or SUCs duly recognized by the CHED, or LUCs with IR; and' },
+                { text: "The applicant's individual income, if employed, or the combined annual gross income of the parent/s or legal guardian/s, in the case of children or dependents, must not exceed Two Million Pesos (Php 2,000,000.00)." },
+            ],
+        },
+        documentaryBoldSubLabel: true,
+        documentaryRequirements: [],
+        documentaryNestedSection: {
+            items: [
+                { text: 'Accomplished Application Form (Annex A);' },
+                { text: 'Photocopy of Birth certificate issued by the by the National Statistics Office (NSO) or the Philippine Statistics Authority (PSA);' },
+                {
+                    text: 'Certification and/or Identification Card confirming membership in any SEG enumerated under Article III, as follows:',
+                    subItems: [
+                        'For Underprivileged and Homeless Citizens — Applicant\'s certification issued by the Local Housing Office, Urban Poor Affairs Office, the Department of Human Settlements and Urban Development (DHSUD), or the City/Municipal Social Welfare and Development Office (C/MSWDO), or proof of inclusion in the Community-Based Monitoring System (CBMS), as certified by the C/MSWDO;',
+                        'For Individuals covered under the Magna Carta for the Poor — Applicant\'s Social Case Study Report or proof of inclusion in the CBMS, as certified by the C/MSWDO;',
+                        'For PWDs — Applicant\'s valid PWD identification card (ID) issued by the Persons with Disability Affairs Office (PDAO) or certification issued by the C/MSWDO;',
+                        'For Solo Parents and their Children — Applicant\'s or his/her parent\'s valid solo Parent ID issued by the C/MSWDO;',
+                        'For Senior Citizens — Applicant\'s Senior Citizen ID issued by the Office of the Senior Citizens Affair (OSCA); and',
+                        'For IPS — Applicant\'s certification issued by the National Commission on Indigenous Peoples (NCIP).',
+                    ],
+                },
+                { text: 'Certified true copy of Form 138 [Learner\'s Progress Report Card or School Form 9 (SF9)], duly signed by the registrar or an authorized representative of the SHS attended;' },
+                {
+                    text: 'Submit the appropriate and latest proof of income applicable to the academic year being applied for, as available, through any one (1) of the following documents:',
+                    subItems: [
+                        'Income Tax Return [Bureau of Internal Revenue (BIR) Form No. 1701/1701A] or Certificate of Compensation Payment/Tax Withheld (BIR Form No. 2316) indicating the annual gross income of the applicant, if employed, or of the parent/s or legal guardian/s;',
+                        'Certificate of Tax Exemption/Non-Filer issued by the Bureau of Internal Revenue (BIR);',
+                        'Certified true copy of contract or proof of income for children of Overseas Filipino Workers (OFW) and Seafarers; or',
+                        'Social Case Study Report issued by the C/MSWDO.',
+                    ],
+                },
+                { text: 'Notarized Certificate of Guardianship, issued by the legal/authorized guardian of the student applicant, if applicable.' },
+            ],
+        },
+        icon: Users,
+        accent: 'from-indigo-500 to-indigo-700',
     },
 ];
 

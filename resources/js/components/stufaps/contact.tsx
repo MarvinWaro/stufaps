@@ -78,13 +78,13 @@ export function Contact() {
 
                     <div className="min-h-[420px] overflow-hidden rounded-2xl border border-slate-200 shadow-sm lg:col-span-3">
                         <iframe
-                            src="https://maps.google.com/maps?q=6.452273282753499,124.87807908993896&z=16&output=embed"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4651.115059954733!2d124.87549511119646!3d6.452219423959352!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x32f821c23dbe6015%3A0x53d254e5fe9b1be6!2sCommission%20on%20Higher%20Education%20(CHED)%20-%20Region%2012!5e1!3m2!1sen!2sph!4v1782787088586!5m2!1sen!2sph"
                             width="100%"
                             height="100%"
                             style={{ border: 0, minHeight: '420px' }}
                             allowFullScreen
                             loading="lazy"
-                            referrerPolicy="no-referrer-when-downgrade"
+                            referrerPolicy="strict-origin-when-cross-origin"
                             title="CHED Regional Office XII Location"
                         />
                     </div>

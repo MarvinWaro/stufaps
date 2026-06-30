@@ -90,6 +90,7 @@ export function ProgramSection({ program, index }: Props) {
                             items={program.documentaryRequirements}
                             nestedSection={program.documentaryNestedSection}
                             nestedSections={program.documentaryNestedSections}
+                            boldSubLabel={program.documentaryBoldSubLabel}
                             tone="sky"
                         />
                         {program.otherRequirements && program.otherRequirements.length > 0 && (
@@ -99,6 +100,7 @@ export function ProgramSection({ program, index }: Props) {
                                 note={program.otherRequirementsNote}
                                 items={program.otherRequirements}
                                 tone="amber"
+                                boldLabel={program.otherRequirementsBoldLabel}
                             />
                         )}
                         {program.benefits && program.benefits.length > 0 && (
@@ -133,6 +135,8 @@ function RequirementCard({
     nestedSection,
     nestedSections,
     tone,
+    boldLabel,
+    boldSubLabel,
 }: {
     icon: typeof CheckCircle2;
     title: string;
@@ -141,6 +145,8 @@ function RequirementCard({
     nestedSection?: NestedSection;
     nestedSections?: NestedSection[];
     tone: keyof typeof TONES;
+    boldLabel?: boolean;
+    boldSubLabel?: boolean;
 }) {
     const t = TONES[tone];
     return (
@@ -154,12 +160,27 @@ function RequirementCard({
             {note && <p className="mt-3 text-sm leading-relaxed text-slate-600">{note}</p>}
             {items.length > 0 && (
                 <ul className="mt-4 space-y-2.5">
-                    {items.map((item, i) => (
-                        <li key={i} className="flex gap-3 text-sm leading-relaxed text-slate-600">
-                            <span className={cn('mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full', t.dot)} />
-                            <span>{item}</span>
-                        </li>
-                    ))}
+                    {items.map((item, i) => {
+                        if (boldLabel) {
+                            const colonIdx = item.indexOf(':');
+                            if (colonIdx !== -1) {
+                                const label = item.slice(0, colonIdx + 1);
+                                const rest = item.slice(colonIdx + 1);
+                                return (
+                                    <li key={i} className="flex gap-3 text-sm leading-relaxed text-slate-600">
+                                        <span className={cn('mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full', t.dot)} />
+                                        <span><span className="font-semibold text-slate-900">{label}</span>{rest}</span>
+                                    </li>
+                                );
+                            }
+                        }
+                        return (
+                            <li key={i} className="flex gap-3 text-sm leading-relaxed text-slate-600">
+                                <span className={cn('mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full', t.dot)} />
+                                <span>{item}</span>
+                            </li>
+                        );
+                    })}
                 </ul>
             )}
             {nestedSection && (
@@ -173,12 +194,25 @@ function RequirementCard({
                                     <span>{item.text}</span>
                                     {item.subItems && item.subItems.length > 0 && (
                                         <ul className="mt-2 space-y-1.5 pl-2">
-                                            {item.subItems.map((sub, j) => (
-                                                <li key={j} className="flex gap-2 text-slate-500">
-                                                    <span className={cn('mt-1.5 h-1 w-1 shrink-0 rounded-full opacity-60', t.dot)} />
-                                                    <span>{sub}</span>
-                                                </li>
-                                            ))}
+                                            {item.subItems.map((sub, j) => {
+                                                if (boldSubLabel) {
+                                                    const dashIdx = sub.indexOf(' — ');
+                                                    if (dashIdx !== -1) {
+                                                        return (
+                                                            <li key={j} className="flex gap-2 text-slate-500">
+                                                                <span className={cn('mt-1.5 h-1 w-1 shrink-0 rounded-full opacity-60', t.dot)} />
+                                                                <span><span className="font-semibold text-slate-900">{sub.slice(0, dashIdx)}</span>{sub.slice(dashIdx)}</span>
+                                                            </li>
+                                                        );
+                                                    }
+                                                }
+                                                return (
+                                                    <li key={j} className="flex gap-2 text-slate-500">
+                                                        <span className={cn('mt-1.5 h-1 w-1 shrink-0 rounded-full opacity-60', t.dot)} />
+                                                        <span>{sub}</span>
+                                                    </li>
+                                                );
+                                            })}
                                         </ul>
                                     )}
                                 </div>
@@ -198,12 +232,25 @@ function RequirementCard({
                                     <span>{item.text}</span>
                                     {item.subItems && item.subItems.length > 0 && (
                                         <ul className="mt-2 space-y-1.5 pl-2">
-                                            {item.subItems.map((sub, j) => (
-                                                <li key={j} className="flex gap-2 text-slate-500">
-                                                    <span className={cn('mt-1.5 h-1 w-1 shrink-0 rounded-full opacity-60', t.dot)} />
-                                                    <span>{sub}</span>
-                                                </li>
-                                            ))}
+                                            {item.subItems.map((sub, j) => {
+                                                if (boldSubLabel) {
+                                                    const dashIdx = sub.indexOf(' — ');
+                                                    if (dashIdx !== -1) {
+                                                        return (
+                                                            <li key={j} className="flex gap-2 text-slate-500">
+                                                                <span className={cn('mt-1.5 h-1 w-1 shrink-0 rounded-full opacity-60', t.dot)} />
+                                                                <span><span className="font-semibold text-slate-900">{sub.slice(0, dashIdx)}</span>{sub.slice(dashIdx)}</span>
+                                                            </li>
+                                                        );
+                                                    }
+                                                }
+                                                return (
+                                                    <li key={j} className="flex gap-2 text-slate-500">
+                                                        <span className={cn('mt-1.5 h-1 w-1 shrink-0 rounded-full opacity-60', t.dot)} />
+                                                        <span>{sub}</span>
+                                                    </li>
+                                                );
+                                            })}
                                         </ul>
                                     )}
                                 </div>
