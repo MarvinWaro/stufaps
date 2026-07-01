@@ -1,4 +1,5 @@
 import { About } from '@/components/stufaps/about';
+import { ApplyModal } from '@/components/stufaps/apply-modal';
 import { Contact } from '@/components/stufaps/contact';
 import { Footer } from '@/components/stufaps/footer';
 import { GeneralRequirements } from '@/components/stufaps/general-requirements';
@@ -8,6 +9,7 @@ import { Navbar } from '@/components/stufaps/navbar';
 import { ProgramSection } from '@/components/stufaps/program-section';
 import { programs as fallbackPrograms, type Program } from '@/data/programs';
 import { Head, usePage } from '@inertiajs/react';
+import { useState } from 'react';
 
 type PageProps = {
     // Backend can hydrate `programs` later via Inertia::render('stufaps', ['programs' => ...])
@@ -18,6 +20,7 @@ type PageProps = {
 export default function Stufaps() {
     const page = usePage<PageProps>();
     const programs = page.props.programs ?? fallbackPrograms;
+    const [applyOpen, setApplyOpen] = useState(false);
 
     return (
         <>
@@ -34,7 +37,7 @@ export default function Stufaps() {
             </Head>
 
             <div className="min-h-screen bg-white pb-[76px] font-sans text-slate-900 antialiased [scroll-behavior:smooth] lg:pb-0">
-                <Navbar />
+                <Navbar onApplyClick={() => setApplyOpen(true)} />
                 <main>
                     <Hero />
                     <About />
@@ -45,8 +48,9 @@ export default function Stufaps() {
                     <Contact />
                 </main>
                 <Footer />
-                <MobileCta />
+                <MobileCta onApplyClick={() => setApplyOpen(true)} />
             </div>
+            <ApplyModal open={applyOpen} onOpenChange={setApplyOpen} />
         </>
     );
 }

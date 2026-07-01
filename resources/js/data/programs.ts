@@ -96,8 +96,16 @@ export type Program = {
     benefits?: string[];
     financialBenefits?: FinancialBenefits;
     priorityPrograms?: PriorityPrograms;
+    application?: Application;
     icon: LucideIcon;
     accent: string;
+};
+
+export type Application = {
+    deadline: string; // e.g. "July 31, 2026"
+    url: string; // portal / bit.ly link
+    email: string;
+    phone: string;
 };
 
 export const programs: Program[] = [
@@ -218,6 +226,12 @@ export const programs: Program[] = [
                 'Bachelor of Elementary Education',
             ],
         },
+        application: {
+            deadline: 'July 31, 2026',
+            url: 'https://bit.ly/2026CMSPApplicationPortal',
+            email: 'stufaps12@ched.gov.ph',
+            phone: '0909 711 1264',
+        },
         icon: GraduationCap,
         accent: 'from-sky-500 to-blue-600',
     },
@@ -327,6 +341,12 @@ export const programs: Program[] = [
                     ],
                 },
             ],
+        },
+        application: {
+            deadline: 'June 30, 2026',
+            url: 'https://bpms.ched.gov.ph',
+            email: 'bpmsp.ro12@ched.gov.ph',
+            phone: '0968 618 4933',
         },
         icon: Star,
         accent: 'from-rose-500 to-red-600',
@@ -765,6 +785,12 @@ export const programs: Program[] = [
                 },
             ],
         },
+        application: {
+            deadline: 'July 13, 2026',
+            url: 'https://bit.ly/MSRS-Apply',
+            email: 'stufaps12@ched.gov.ph',
+            phone: '090 9711 1264',
+        },
         icon: Stethoscope,
         accent: 'from-fuchsia-500 to-pink-600',
     },
@@ -786,42 +812,38 @@ export const programs: Program[] = [
         documentaryRequirements: [],
         documentaryNestedSection: {
             items: [
-                { text: '1. Birth Certificate issued by the Local Civil Registry or Philippine Statistics Authority (PSA)' },
+                { text: '1. Birth Certificate issued by the Philippine Statistics Authority;' },
                 {
                     text: '2. Academic:',
                     subItems: [
-                        '2.1. For senior high school students — duly certified copy of the grades for Grade 11 and first semester for Grade 12;',
-                        '2.2. For senior high school graduates — Form 138; and',
-                        '2.3. For applicants with earned units or currently enrolled in college — duly Certified Copy of Grades for the latest semester/term attended.',
+                        'For senior high school students - duly certified true copy of grades for Grade 11 and first semester for Grade 12',
+                        'For senior high school graduates - Form 138 or SF 9',
+                        'For ALS graduate - duly certified true copy of grades for Grade 12',
+                        'For applicants with earned units or currently enrolled in college - duly Certified Copy of Grades for the latest semester/term attended',
                     ],
                 },
-                { text: '3. PCA Certification, issued by PCA Regional Office (PCA-RO) to NCFRS registered coconut farmers/farmworkers upon the endorsement of the PCA Provincial Office and/or Local Coconut Industry Development Councils (LCIDCs), small coconut farmers organizations, federations, and cooperatives. Note: Only one family member shall be allowed to apply for the scholarship;' },
-                { text: '4. Certificate of Good Moral Character from the last school attended;' },
+                { text: '3. PCA Certification;' },
+                { text: '4. Certificate of Good Moral Character from the last school attended (applicable for incoming first year college applicants or transferees);' },
+                { text: '5. Notice of admission from the HEIs (for incoming first year college students or transferees);' },
                 {
-                    text: '5. Proof of income — any of the following:',
+                    text: '6. Proof of Income - ANY of the following:',
                     subItems: [
-                        '5.1. Latest Income Tax Return (ITR) of applicant and/or spouse/parents/guardians if employed;',
-                        '5.2. Certificate of Tax Exemption from the Bureau of Internal Revenue (BIR);',
-                        '5.3. Certificate of No Income from BIR;',
-                        '5.4. Certificate of Indigency from their Barangay; or',
-                        '5.5. Certificate/Case Study from Department of Social Welfare and Development (DSWD)',
+                        'Latest Income Tax Return (ITR) of applicant and/spouse/parents/guardians if employed;',
+                        'Certificate of Tax Exemption from the Bureau of Internal Revenue (BIR);',
+                        'Certificate of No Income from BIR;',
+                        'Certificate of Low Income from the BIR indicating the actual amount of income; or',
+                        'Certificate/Case Study from City/Municipal Social Welfare and Development Office (C/MSWDO).',
                     ],
                 },
-                { text: '6. Notice of admission from the HEI with collegiate degree offerings;' },
-                { text: '7. Proof that the student applicant belonged to special group/s (if applicable); and' },
-                { text: '8. Original Barangay Certification that parents/guardians and siblings had never attended college/university (if applicable).' },
+                { text: '7. Original/certified true copy of certification issued by the HEIs certifying that the applicant is currently enrolled in CoScho identified priority programs and not enjoying any national government-funded scholarship program (for currently enrolled college student applicants—2nd, 3rd and 4th year levels)' },
             ],
         },
-        otherRequirementsNote:
-            'Proof that the student applicant belonged to special group/s (if applicable); and Original Barangay Certification that parents/guardians and siblings had never attended college/university (if applicable).',
+        otherRequirementsNote: 'Additional five (5) points to applicants belonging to special equity group: (Whichever is applicable to the applicant)',
         otherRequirements: [
-            "Applicant's PWD ID issued by C/MSWDO or Certification of Disability issued by the Persons with Disability Affairs Office (PDAO);",
-            "Solo Parent ID of applicant or his/her parent issued by C/MSWDO;",
-            "Applicant's Senior Citizen ID issued by C/MSWDO;",
-            'Certification issued by Department of Human Settlements and Urban Development (DHSUD) or C/MSWDO to Underprivileged and Homeless family;',
-            'Social Case Study Report issued by C/MSWDO covered under Magna Carta for the Poor and/or First-Generation Students;',
-            'Certification issued by the National Commission on Indigenous Peoples (NCIP) to the Indigenous People.',
-            'Notarized Certificate of Guardianship, issued by the legal guardian of the student applicant, if applicable.',
+            'Original/certified true copy of the certification issued by the National Commission of Indigenous Peoples (NCIP) attesting that the student applicant belongs to indigenous group/s;',
+            'Original/certified true copy of the certification issued by the C/MSWDO attesting that parents/guardians and siblings of the student applicant had never attended college/university;',
+            "Certified true copy of the PWD ID issued by LGU's Person with Disability Affairs Office (PDAO) or City/Municipal Social Welfare and Development Office; or",
+            'For Solo Parent or Son/Daughter of a Solo Parent - Certified true copy of the Solo Parent issued by the C/MSWDO.',
         ],
         financialBenefits: {
             groups: [
@@ -1007,6 +1029,12 @@ export const programs: Program[] = [
             'Members of Indigenous Peoples Groups: Certificate of tribal membership issued by the recognized tribal authority or certification issued by the National Commission on Indigenous Peoples (NCIP)',
             'Persons Living in Poverty: Listahanan certification, Pantawid Pamilyang Pilipino Program (4Ps) Identification Card, or certification issued by the DSWD',
         ],
+        application: {
+            deadline: 'July 7, 2026',
+            url: 'https://ahead.ched.gov.ph',
+            email: 'ahead.ro12@ched.gov.ph',
+            phone: '0968 618 4933',
+        },
         icon: HeartPulse,
         accent: 'from-violet-500 to-purple-600',
     },
@@ -1067,6 +1095,9 @@ export const programs: Program[] = [
         accent: 'from-indigo-500 to-indigo-700',
     },
 ];
+
+/** Programs with a live application portal — shown in the Apply Now modal. */
+export const openPrograms = programs.filter((p) => p.application);
 
 export const generalRequirements = {
     documentary: [
