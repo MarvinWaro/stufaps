@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 import { ArrowRight, Phone } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
-export function MobileCta() {
+export function MobileCta({ onApplyClick }: { onApplyClick?: () => void }) {
     const [show, setShow] = useState(false);
 
     useEffect(() => {
@@ -12,10 +12,6 @@ export function MobileCta() {
         window.addEventListener('scroll', onScroll, { passive: true });
         return () => window.removeEventListener('scroll', onScroll);
     }, []);
-
-    const scrollToContact = () => {
-        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    };
 
     return (
         <div
@@ -42,7 +38,7 @@ export function MobileCta() {
                     <MessengerIcon className="h-5 w-5" />
                 </a>
                 <button
-                    onClick={scrollToContact}
+                    onClick={() => onApplyClick?.()}
                     className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-blue-600 px-4 py-3.5 text-sm font-bold text-white shadow-md shadow-sky-500/30 active:scale-[0.98]"
                 >
                     Apply Now

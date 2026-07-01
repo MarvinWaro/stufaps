@@ -50,16 +50,31 @@ export function ProgramSection({ program, index }: Props) {
                             <p className="text-sm leading-relaxed text-slate-600 sm:text-base">{program.description}</p>
 
                             <div className="flex flex-wrap items-center gap-3">
-                                <button
-                                    onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                                    className={cn(
-                                        'group inline-flex items-center gap-2 rounded-full bg-gradient-to-r px-6 py-3 text-sm font-semibold text-white shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg',
-                                        program.accent,
-                                    )}
-                                >
-                                    Apply for {program.acronym}
-                                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                                </button>
+                                {program.application ? (
+                                    <a
+                                        href={program.application.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className={cn(
+                                            'group inline-flex items-center gap-2 rounded-full bg-gradient-to-r px-6 py-3 text-sm font-semibold text-white shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg',
+                                            program.accent,
+                                        )}
+                                    >
+                                        Apply for {program.acronym}
+                                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                                    </a>
+                                ) : (
+                                    <button
+                                        onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                                        className={cn(
+                                            'group inline-flex items-center gap-2 rounded-full bg-gradient-to-r px-6 py-3 text-sm font-semibold text-white shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg',
+                                            program.accent,
+                                        )}
+                                    >
+                                        Apply for {program.acronym}
+                                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                                    </button>
+                                )}
                                 <ShareButton program={program} />
                             </div>
                         </div>

@@ -16,7 +16,7 @@ const ALL_IDS = [
     'contact',
 ];
 
-export function Navbar() {
+export function Navbar({ onApplyClick }: { onApplyClick?: () => void }) {
     const [scrolled, setScrolled] = useState(false);
     const [open, setOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -134,7 +134,7 @@ export function Navbar() {
                 </nav>
 
                 <button
-                    onClick={() => handleClick('contact')}
+                    onClick={() => onApplyClick?.()}
                     className="ml-2 rounded-full bg-gradient-to-r from-sky-500 to-blue-600 px-5 py-2 text-sm font-semibold text-white shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg"
                 >
                     Apply Now
@@ -206,7 +206,10 @@ export function Navbar() {
                     </button>
 
                     <button
-                        onClick={() => handleClick('contact')}
+                        onClick={() => {
+                            setOpen(false);
+                            onApplyClick?.();
+                        }}
                         className="mt-2 mb-3 rounded-full bg-gradient-to-r from-sky-500 to-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md"
                     >
                         Apply Now
