@@ -1091,6 +1091,12 @@ export const programs: Program[] = [
                 { text: 'Notarized Certificate of Guardianship, issued by the legal/authorized guardian of the student applicant, if applicable.' },
             ],
         },
+        application: {
+            deadline: 'July 31, 2026',
+            url: 'https://bit.ly/2026EASEApplicationPortal',
+            email: 'bpmsp.ro12@ched.gov.ph',
+            phone: '0968 618 4933',
+        },
         icon: Users,
         accent: 'from-indigo-500 to-indigo-700',
     },
