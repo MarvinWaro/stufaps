@@ -1040,7 +1040,7 @@ export const programs: Program[] = [
     },
     {
         id: 'spegs',
-        acronym: 'SPSEGs',
+        acronym: 'EASE',
         name: 'The Scholarship Program for Special Equity Groups',
         tagline: 'Empowering Special Equity Groups through higher education',
         description:
